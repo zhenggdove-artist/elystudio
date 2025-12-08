@@ -5,9 +5,15 @@ import react from '@vitejs/plugin-react';
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
     return {
+      // Set base to repository name for GitHub Pages
+      base: '/elystudio/',
       server: {
         port: 3000,
         host: '0.0.0.0',
+      },
+      build: {
+        outDir: 'dist',
+        emptyOutDir: true,
       },
       plugins: [react()],
       define: {
