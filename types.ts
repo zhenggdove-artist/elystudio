@@ -41,8 +41,8 @@ export interface ServiceTypography {
 export interface GlobalTypography {
   navMenuSize: string;
   navSubtitleSize: string;
-  navPadding: string; // New: Vertical padding
-  navSpacing: string; // New: Horizontal spacing
+  navPadding: string;
+  navSpacing: string;
   
   sectionTitleSize: string;
   bodyTextSize: string;
