@@ -6,7 +6,7 @@ import { NavBar } from './components/NavBar';
 import { Footer } from './components/Footer';
 import { Home } from './pages/Home';
 import { Services } from './pages/Services';
-import { Gallery } from './pages/Gallery'; // Renamed from Portfolio
+import { Gallery } from './pages/Gallery'; 
 import { Contact } from './pages/Contact';
 import { Admin } from './pages/Admin';
 
@@ -31,7 +31,7 @@ export default function App() {
       case Page.SERVICES:
       case Page.ABOUT: 
         return <Services content={content} setPage={setPage} />;
-      case Page.GALLERY: // Renamed
+      case Page.GALLERY: 
         return <Gallery />;
       case Page.CONTACT:
         return <Contact content={content} />;
@@ -70,7 +70,7 @@ export default function App() {
             backgroundImage: `url(${content.globalBackgroundImage})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            opacity: parseInt(content.globalBackgroundOpacity || '50') / 100, // Dynamic opacity
+            opacity: parseInt(content.globalBackgroundOpacity || '40') / 100, // Dynamic opacity
             // Feather edges to transparent using a radial mask (vignette effect)
             maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 100%)',
             WebkitMaskImage: 'radial-gradient(ellipse at center, black 40%, transparent 100%)',

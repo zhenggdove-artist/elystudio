@@ -9,7 +9,6 @@ interface HomeProps {
 }
 
 export const Home: React.FC<HomeProps> = ({ content, setPage }) => {
-  // Safe defaults if heroSettings is missing (backwards compatibility)
   const settings = content.heroSettings || {
     titleFontSize: '4rem',
     titleVerticalOffset: '0px',
@@ -19,12 +18,17 @@ export const Home: React.FC<HomeProps> = ({ content, setPage }) => {
     imageScale: '100',
     imagePositionY: '50',
     imagePositionX: '50',
-    featheringIntensity: '80',
+    featheringIntensity: '85',
     overlayOpacity: '30'
   };
 
   const sectionTitleSize = content.globalTypography?.sectionTitleSize || '24px';
   const bodyTextSize = content.globalTypography?.bodyTextSize || '18px';
+
+  // Calculate mask size based on feathering intensity. 
+  // Higher intensity = smaller circle, more soft edge.
+  const featherVal = parseInt(settings.featheringIntensity);
+  const gradientStart = featherVal > 50 ? 150 - featherVal : 90;
 
   return (
     <div className="w-full">
@@ -37,13 +41,12 @@ export const Home: React.FC<HomeProps> = ({ content, setPage }) => {
             alt="Hero Background" 
             className="w-full h-full object-cover"
             style={{
-              // Use object-position for X and Y control
               objectPosition: `${settings.imagePositionX || '50'}% ${settings.imagePositionY}%`,
               transform: `scale(${parseInt(settings.imageScale) / 100})`,
               transition: 'transform 0.5s ease-out',
-              // Enhanced Feathering
-              maskImage: `radial-gradient(ellipse at center, black ${parseInt(settings.featheringIntensity) - 30}%, transparent 100%)`,
-              WebkitMaskImage: `radial-gradient(ellipse at center, black ${parseInt(settings.featheringIntensity) - 30}%, transparent 100%)`,
+              // Dynamic Radial Mask for soft edges
+              maskImage: `radial-gradient(ellipse at center, black ${gradientStart - 40}%, transparent 100%)`,
+              WebkitMaskImage: `radial-gradient(ellipse at center, black ${gradientStart - 40}%, transparent 100%)`,
             }}
           />
           <div 
@@ -58,7 +61,8 @@ export const Home: React.FC<HomeProps> = ({ content, setPage }) => {
             style={{ 
               fontSize: settings.subtitleFontSize,
               marginTop: settings.subtitleVerticalOffset,
-              position: 'relative'
+              position: 'relative',
+              top: settings.subtitleVerticalOffset
             }}
           >
             {content.heroSubtitle}
@@ -77,8 +81,8 @@ export const Home: React.FC<HomeProps> = ({ content, setPage }) => {
             {content.heroDescription}
           </p>
           <div 
-            className="pt-8"
-            style={{ marginTop: settings.buttonVerticalOffset }}
+            className="pt-8 relative"
+            style={{ top: settings.buttonVerticalOffset }}
           >
             <button 
               onClick={() => setPage(Page.SERVICES)}

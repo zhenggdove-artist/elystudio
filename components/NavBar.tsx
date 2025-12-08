@@ -13,7 +13,7 @@ export const NavBar: React.FC<NavBarProps> = ({ currentPage, setPage, content })
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // Default fallbacks if new settings aren't loaded yet
+  // Default fallbacks
   const menuSize = content.globalTypography?.navMenuSize || '12px';
   const subSize = content.globalTypography?.navSubtitleSize || '9px';
 
@@ -25,6 +25,7 @@ export const NavBar: React.FC<NavBarProps> = ({ currentPage, setPage, content })
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Updated labels with Chinese subtitles
   const navItems = [
     { label: 'HOME', sub: '首頁', value: Page.HOME },
     { label: 'SERVICES', sub: '服務', value: Page.SERVICES },

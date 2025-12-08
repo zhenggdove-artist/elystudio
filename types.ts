@@ -18,18 +18,18 @@ export interface SiteColors {
 }
 
 export interface HeroSettings {
-  titleFontSize: string;      // CSS value (e.g., "60px")
-  titleVerticalOffset: string; // CSS value (e.g., "20px")
-  subtitleFontSize: string;   // CSS value (e.g., "14px")
-  subtitleVerticalOffset: string; // New: CSS value for subtitle margin/position
-  buttonVerticalOffset: string;   // New: CSS value for button margin/position
+  titleFontSize: string;
+  titleVerticalOffset: string;
+  subtitleFontSize: string;
+  subtitleVerticalOffset: string; // New
+  buttonVerticalOffset: string;   // New
   
-  imageScale: string;         // Percentage (e.g., "100")
-  imagePositionY: string;     // Percentage (e.g., "50")
-  imagePositionX: string;     // Percentage (e.g., "50")
+  imageScale: string;
+  imagePositionY: string;
+  imagePositionX: string;     // New: Horizontal Position
   
-  featheringIntensity: string; // New: Percentage for mask gradient (e.g. 80 means fade starts at 80%)
-  overlayOpacity: string;     // Percentage (e.g., "30")
+  featheringIntensity: string; // New: 0-100% for edge softness
+  overlayOpacity: string;
 }
 
 export interface ServiceTypography {
@@ -39,43 +39,41 @@ export interface ServiceTypography {
 }
 
 export interface GlobalTypography {
-  navMenuSize: string;      // Desktop Menu Font Size
-  navSubtitleSize: string;  // Desktop Menu Subtitle Size
-  sectionTitleSize: string; // General Section Headers (Philosophy, Workflow)
-  bodyTextSize: string;     // General Body Text
-  footerTextSize: string;   // Footer Text
+  navMenuSize: string;
+  navSubtitleSize: string;
+  sectionTitleSize: string;
+  bodyTextSize: string;
+  footerTextSize: string;
 }
 
 export interface SiteContent {
-  // Brand Identity
+  // Brand
   logoTitle: string;
   logoSubtitle: string;
   
   // Visuals
-  globalBackgroundImage: string; // URL for site-wide background texture
-  globalBackgroundOpacity: string; // "0" to "100"
+  globalBackgroundImage: string;
+  globalBackgroundOpacity: string; // New: 0-100
   colors: SiteColors;
 
-  // Global / Hero
+  // Hero
   siteTitle: string;
   heroSubtitle: string;
   heroTitle: string;
   heroDescription: string;
   heroImage: string;
-  heroSettings: HeroSettings; // New styling config
+  heroSettings: HeroSettings;
   
-  // Sections
+  // Content
   philosophyTitle: string;
   aboutText: string;
-  
-  // Construction & Footer
   constructionRequirements: string;
   contactInfo: string;
   
   // Data
   services: ServiceItem[];
-  serviceTypography: ServiceTypography; // Typography settings for services
-  globalTypography: GlobalTypography;   // New: Global typography settings
+  serviceTypography: ServiceTypography; // New
+  globalTypography: GlobalTypography;
   
   extraCosts: {
     curve: string;
@@ -100,7 +98,7 @@ export enum Page {
   HOME = 'HOME',
   ABOUT = 'ABOUT',
   SERVICES = 'SERVICES',
-  GALLERY = 'GALLERY', // Renamed from PORTFOLIO
+  GALLERY = 'GALLERY',
   CONTACT = 'CONTACT',
   ADMIN = 'ADMIN'
 }

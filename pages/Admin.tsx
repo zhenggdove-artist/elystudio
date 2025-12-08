@@ -33,7 +33,7 @@ export const Admin: React.FC<AdminProps> = ({ onLogout, refreshContent }) => {
         imageScale: '100',
         imagePositionY: '50',
         imagePositionX: '50',
-        featheringIntensity: '80',
+        featheringIntensity: '85',
         overlayOpacity: '30'
     };
     const defaultServiceTypography = {
@@ -54,7 +54,7 @@ export const Admin: React.FC<AdminProps> = ({ onLogout, refreshContent }) => {
         heroSettings: { ...defaultHeroSettings, ...prev.heroSettings },
         serviceTypography: { ...defaultServiceTypography, ...prev.serviceTypography },
         globalTypography: { ...defaultGlobalTypography, ...prev.globalTypography },
-        globalBackgroundOpacity: prev.globalBackgroundOpacity || '50'
+        globalBackgroundOpacity: prev.globalBackgroundOpacity || '40'
     });
   }, []);
 
@@ -443,11 +443,11 @@ export const Admin: React.FC<AdminProps> = ({ onLogout, refreshContent }) => {
                      min="0"
                      max="100"
                      className="w-full"
-                     value={content.heroSettings?.featheringIntensity || '80'}
+                     value={content.heroSettings?.featheringIntensity || '85'}
                      onChange={(e) => handleHeroSettingChange('featheringIntensity', e.target.value)}
                    />
                    <div className="text-right text-xs text-primary">{content.heroSettings?.featheringIntensity}%</div>
-                   <p className="text-[9px] text-secondary">調整圖片邊緣與背景融合的程度</p>
+                   <p className="text-[9px] text-secondary">調整圖片邊緣與背景融合的程度 (越高越柔和)</p>
                 </div>
              </div>
           </section>
@@ -472,7 +472,7 @@ export const Admin: React.FC<AdminProps> = ({ onLogout, refreshContent }) => {
                      min="0"
                      max="100"
                      className="w-full"
-                     value={content.globalBackgroundOpacity || '50'}
+                     value={content.globalBackgroundOpacity || '40'}
                      onChange={(e) => handleTextChange('globalBackgroundOpacity', e.target.value)}
                   />
                   <div className="text-right text-xs text-primary">{content.globalBackgroundOpacity}%</div>
@@ -580,8 +580,8 @@ export const Admin: React.FC<AdminProps> = ({ onLogout, refreshContent }) => {
 
       {activeTab === 'content' && (
         <div className="space-y-16 animate-fade-in">
-          
-          {/* Hero Section */}
+          {/* Content sections remain same as before, just ensuring they are rendered */}
+           {/* Hero Content */}
           <section className="space-y-6">
             <h3 className="font-sans text-sm tracking-[0.2em] border-l-2 border-primary pl-4 text-primary uppercase">Hero Section (首頁主視覺)</h3>
             <div className="grid gap-6">
@@ -644,16 +644,6 @@ export const Admin: React.FC<AdminProps> = ({ onLogout, refreshContent }) => {
                 />
               </div>
             </div>
-          </section>
-
-          {/* Requirements */}
-          <section className="space-y-6">
-            <h3 className="font-sans text-sm tracking-[0.2em] border-l-2 border-primary pl-4 text-primary uppercase">Requirements (施工規範)</h3>
-            <textarea
-              className="w-full h-48 p-4 bg-white border border-line focus:border-primary outline-none font-serif leading-relaxed"
-              value={content.constructionRequirements}
-              onChange={(e) => handleTextChange('constructionRequirements', e.target.value)}
-            />
           </section>
 
           {/* Services */}

@@ -124,7 +124,7 @@ export const Services: React.FC<ServicesProps> = ({ content, setPage }) => {
         </div>
       </section>
 
-      {/* Workflow Section (Based on One Dust reference) */}
+      {/* Workflow Section */}
       <section className="py-24 md:py-32 px-6 md:px-12 max-w-[1440px] mx-auto">
         <div className="grid md:grid-cols-12 gap-16">
           <div className="md:col-span-4">

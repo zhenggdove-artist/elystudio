@@ -5,8 +5,8 @@ export const INITIAL_CONTENT: SiteContent = {
   logoTitle: 'ELY MURAL',
   logoSubtitle: 'Art Studio',
   
-  globalBackgroundImage: '', // Empty by default, falls back to color
-  globalBackgroundOpacity: '50', // Default 50% opacity
+  globalBackgroundImage: 'https://www.transparenttextures.com/patterns/concrete-wall.png', // Subtle texture default
+  globalBackgroundOpacity: '40', // Default opacity
   
   colors: {
     primary: '#1C1C1C',
@@ -30,12 +30,12 @@ export const INITIAL_CONTENT: SiteContent = {
     subtitleVerticalOffset: '0px',
     buttonVerticalOffset: '32px',
     
-    imageScale: '110', // Slightly zoomed in default to allow movement
+    imageScale: '110',
     imagePositionY: '50',
-    imagePositionX: '50', // Center X by default
+    imagePositionX: '50',
     
-    featheringIntensity: '80', // Default fade start point
-    overlayOpacity: '30'
+    featheringIntensity: '85', // High feathering by default
+    overlayOpacity: '20'
   },
   
   philosophyTitle: 'PHILOSOPHY',
@@ -60,8 +60,8 @@ export const INITIAL_CONTENT: SiteContent = {
   globalTypography: {
     navMenuSize: '12px',
     navSubtitleSize: '9px',
-    sectionTitleSize: '24px', // e.g. Philosophy title
-    bodyTextSize: '16px',     // General body text
+    sectionTitleSize: '24px',
+    bodyTextSize: '16px',
     footerTextSize: '14px',
   },
   
