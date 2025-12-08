@@ -21,14 +21,14 @@ export interface HeroSettings {
   titleFontSize: string;
   titleVerticalOffset: string;
   subtitleFontSize: string;
-  subtitleVerticalOffset: string; // New
-  buttonVerticalOffset: string;   // New
+  subtitleVerticalOffset: string;
+  buttonVerticalOffset: string;
   
   imageScale: string;
   imagePositionY: string;
-  imagePositionX: string;     // New: Horizontal Position
+  imagePositionX: string;
   
-  featheringIntensity: string; // New: 0-100% for edge softness
+  featheringIntensity: string;
   overlayOpacity: string;
 }
 
@@ -41,6 +41,9 @@ export interface ServiceTypography {
 export interface GlobalTypography {
   navMenuSize: string;
   navSubtitleSize: string;
+  navPadding: string; // New: Vertical padding
+  navSpacing: string; // New: Horizontal spacing
+  
   sectionTitleSize: string;
   bodyTextSize: string;
   footerTextSize: string;
@@ -53,7 +56,7 @@ export interface SiteContent {
   
   // Visuals
   globalBackgroundImage: string;
-  globalBackgroundOpacity: string; // New: 0-100
+  globalBackgroundOpacity: string;
   colors: SiteColors;
 
   // Hero
@@ -72,7 +75,7 @@ export interface SiteContent {
   
   // Data
   services: ServiceItem[];
-  serviceTypography: ServiceTypography; // New
+  serviceTypography: ServiceTypography;
   globalTypography: GlobalTypography;
   
   extraCosts: {

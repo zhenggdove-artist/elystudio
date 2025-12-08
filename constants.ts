@@ -5,8 +5,8 @@ export const INITIAL_CONTENT: SiteContent = {
   logoTitle: 'ELY MURAL',
   logoSubtitle: 'Art Studio',
   
-  globalBackgroundImage: 'https://www.transparenttextures.com/patterns/concrete-wall.png', // Subtle texture default
-  globalBackgroundOpacity: '40', // Default opacity
+  globalBackgroundImage: 'https://www.transparenttextures.com/patterns/concrete-wall.png',
+  globalBackgroundOpacity: '40',
   
   colors: {
     primary: '#1C1C1C',
@@ -34,7 +34,7 @@ export const INITIAL_CONTENT: SiteContent = {
     imagePositionY: '50',
     imagePositionX: '50',
     
-    featheringIntensity: '85', // High feathering by default
+    featheringIntensity: '85',
     overlayOpacity: '20'
   },
   
@@ -60,6 +60,8 @@ export const INITIAL_CONTENT: SiteContent = {
   globalTypography: {
     navMenuSize: '12px',
     navSubtitleSize: '9px',
+    navPadding: '24px',
+    navSpacing: '48px',
     sectionTitleSize: '24px',
     bodyTextSize: '16px',
     footerTextSize: '14px',

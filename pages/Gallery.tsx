@@ -1,13 +1,31 @@
 
 import React from 'react';
 import { GALLERY_IMAGES } from '../constants';
+import { SiteContent } from '../types';
 
-export const Gallery: React.FC = () => {
+interface GalleryProps {
+  content?: SiteContent;
+}
+
+export const Gallery: React.FC<GalleryProps> = ({ content }) => {
+  const headerSize = content?.globalTypography?.sectionTitleSize || '24px';
+  const subSize = content?.globalTypography?.bodyTextSize || '16px';
+
   return (
     <div className="w-full pt-32 pb-24 px-6 md:px-12 max-w-[1440px] mx-auto animate-fade-in">
       <div className="text-center mb-24">
-        <h2 className="font-display text-3xl md:text-4xl tracking-[0.2em] text-primary mb-4">GALLERY</h2>
-        <p className="font-serif text-secondary italic">Selected Works</p>
+        <h2 
+          className="font-display tracking-[0.2em] text-primary mb-4"
+          style={{ fontSize: headerSize }}
+        >
+          GALLERY
+        </h2>
+        <p 
+          className="font-serif text-secondary italic"
+          style={{ fontSize: subSize }}
+        >
+          Selected Works
+        </p>
       </div>
       
       <div className="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4">
