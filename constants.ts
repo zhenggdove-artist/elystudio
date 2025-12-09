@@ -129,7 +129,7 @@ export const INITIAL_CONTENT: SiteContent = {
       "caption": ""
     }
   ],
-  "galleryLayout": "staggered",
+  "galleryLayout": "masonry",
   "formspreeId": "xeoylpkj",
   "mobileGalleryLayout": "staggered",
   "galleryTextPosition": "side",
