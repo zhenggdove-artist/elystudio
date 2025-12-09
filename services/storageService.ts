@@ -8,7 +8,24 @@ export const getContent = (): SiteContent => {
   const stored = localStorage.getItem(CONTENT_KEY);
   if (!stored) return INITIAL_CONTENT;
   try {
-    return JSON.parse(stored);
+    const parsed = JSON.parse(stored);
+
+    // 向後兼容：將舊格式的 galleryImages (string[]) 轉換為新格式 (GalleryImage[])
+    if (parsed.galleryImages && Array.isArray(parsed.galleryImages)) {
+      parsed.galleryImages = parsed.galleryImages.map((item: any) => {
+        // 如果已經是新格式 (有 url 屬性)，直接返回
+        if (typeof item === 'object' && item.url !== undefined) {
+          return item;
+        }
+        // 如果是舊格式 (純字符串)，轉換為新格式
+        if (typeof item === 'string') {
+          return { url: item, caption: '' };
+        }
+        return item;
+      });
+    }
+
+    return parsed;
   } catch {
     return INITIAL_CONTENT;
   }

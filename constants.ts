@@ -96,14 +96,14 @@ export const INITIAL_CONTENT: SiteContent = {
     }
   ],
   "galleryImages": [
-    "https://duk.tw/4XMtfQ.jpg",
-    "https://duk.tw/dyKwoY.jpg",
-    "https://duk.tw/BaSJxu.jpg",
-    "https://duk.tw/SwcP8Z.jpg",
-    "https://duk.tw/EGyPgQ.jpg",
-    "https://duk.tw/gnHjHS.jpg",
-    "https://duk.tw/SPrmYk.jpg",
-    "https://duk.tw/26r4Ih.jpg"
+    { "url": "https://duk.tw/4XMtfQ.jpg", "caption": "" },
+    { "url": "https://duk.tw/dyKwoY.jpg", "caption": "" },
+    { "url": "https://duk.tw/BaSJxu.jpg", "caption": "" },
+    { "url": "https://duk.tw/SwcP8Z.jpg", "caption": "" },
+    { "url": "https://duk.tw/EGyPgQ.jpg", "caption": "" },
+    { "url": "https://duk.tw/gnHjHS.jpg", "caption": "" },
+    { "url": "https://duk.tw/SPrmYk.jpg", "caption": "" },
+    { "url": "https://duk.tw/26r4Ih.jpg", "caption": "" }
   ],
   "galleryLayout": "staggered",
   "formspreeId": "xeoylpkj",
