@@ -96,14 +96,38 @@ export const INITIAL_CONTENT: SiteContent = {
     }
   ],
   "galleryImages": [
-    { "url": "https://duk.tw/4XMtfQ.jpg", "caption": "" },
-    { "url": "https://duk.tw/dyKwoY.jpg", "caption": "" },
-    { "url": "https://duk.tw/BaSJxu.jpg", "caption": "" },
-    { "url": "https://duk.tw/SwcP8Z.jpg", "caption": "" },
-    { "url": "https://duk.tw/EGyPgQ.jpg", "caption": "" },
-    { "url": "https://duk.tw/gnHjHS.jpg", "caption": "" },
-    { "url": "https://duk.tw/SPrmYk.jpg", "caption": "" },
-    { "url": "https://duk.tw/26r4Ih.jpg", "caption": "" }
+    {
+      "url": "https://duk.tw/4XMtfQ.jpg",
+      "caption": ""
+    },
+    {
+      "url": "https://duk.tw/dyKwoY.jpg",
+      "caption": ""
+    },
+    {
+      "url": "https://duk.tw/BaSJxu.jpg",
+      "caption": ""
+    },
+    {
+      "url": "https://duk.tw/SwcP8Z.jpg",
+      "caption": ""
+    },
+    {
+      "url": "https://duk.tw/EGyPgQ.jpg",
+      "caption": ""
+    },
+    {
+      "url": "https://duk.tw/gnHjHS.jpg",
+      "caption": ""
+    },
+    {
+      "url": "https://duk.tw/SPrmYk.jpg",
+      "caption": ""
+    },
+    {
+      "url": "https://duk.tw/26r4Ih.jpg",
+      "caption": ""
+    }
   ],
   "galleryLayout": "staggered",
   "formspreeId": "xeoylpkj",
@@ -115,13 +139,13 @@ export const INITIAL_CONTENT: SiteContent = {
   },
   "servicesLayout": "cards",
   "mobileTypography": {
-    "navMenuSize": "5px",
-    "navSubtitleSize": "5px",
-    "sectionTitleSize": "5px",
-    "bodyTextSize": "5px",
-    "footerTextSize": "5px",
-    "heroTitleSize": "5px",
-    "heroSubtitleSize": "5px"
+    "navMenuSize": "8px",
+    "navSubtitleSize": "8px",
+    "sectionTitleSize": "8px",
+    "bodyTextSize": "8px",
+    "footerTextSize": "8px",
+    "heroTitleSize": "8px",
+    "heroSubtitleSize": "8px"
   }
 };
 
