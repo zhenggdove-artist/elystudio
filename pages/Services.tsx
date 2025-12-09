@@ -121,6 +121,8 @@ export const Services: React.FC<ServicesProps> = ({ content, setPage }) => {
                   <img
                     src={service.imageUrl}
                     alt={service.title}
+                    loading={index === 0 ? "eager" : "lazy"}
+                    decoding="async"
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                   />
                 </div>

@@ -1213,6 +1213,8 @@ export const GALLERY_IMAGES = INITIAL_CONTENT.galleryImages;
                         <img
                           src={image.url}
                           alt={`Gallery ${index + 1}`}
+                          loading="lazy"
+                          decoding="async"
                           className="w-full h-48 object-cover"
                           onError={(e) => {
                             e.currentTarget.style.display = 'none';
@@ -1287,7 +1289,7 @@ export const GALLERY_IMAGES = INITIAL_CONTENT.galleryImages;
                   value={content.heroImage}
                   onChange={(e) => handleTextChange('heroImage', e.target.value)}
                 />
-                <img src={content.heroImage} alt="Preview" className="w-32 h-20 object-cover mt-2 opacity-50" />
+                <img src={content.heroImage} alt="Preview" loading="lazy" decoding="async" className="w-32 h-20 object-cover mt-2 opacity-50" />
               </div>
             </div>
           </section>
@@ -1346,12 +1348,12 @@ export const GALLERY_IMAGES = INITIAL_CONTENT.galleryImages;
                    </div>
                    <div>
                       <label className="block text-xs text-secondary mb-1">圖片連結 (Image URL)</label>
-                      <input 
-                          className="w-full p-2 border border-line font-sans text-sm mb-2" 
-                          value={service.imageUrl} 
-                          onChange={(e) => handleServiceChange(idx, 'imageUrl', e.target.value)} 
+                      <input
+                          className="w-full p-2 border border-line font-sans text-sm mb-2"
+                          value={service.imageUrl}
+                          onChange={(e) => handleServiceChange(idx, 'imageUrl', e.target.value)}
                       />
-                      <img src={service.imageUrl} alt="Service" className="w-full h-32 object-cover opacity-80" />
+                      <img src={service.imageUrl} alt="Service" loading="lazy" decoding="async" className="w-full h-32 object-cover opacity-80" />
                    </div>
                 </div>
               </div>

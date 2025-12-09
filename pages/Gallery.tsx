@@ -75,6 +75,8 @@ export const Gallery: React.FC<GalleryProps> = ({ content }) => {
         <img
           src={image.url}
           alt={image.caption || `Gallery ${index + 1}`}
+          loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
         />
         <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
