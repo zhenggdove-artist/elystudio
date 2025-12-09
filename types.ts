@@ -49,7 +49,29 @@ export interface GlobalTypography {
   footerTextSize: string;
 }
 
+export interface MobileTypography {
+  navMenuSize: string;
+  navSubtitleSize: string;
+  sectionTitleSize: string;
+  bodyTextSize: string;
+  footerTextSize: string;
+  heroTitleSize: string;
+  heroSubtitleSize: string;
+}
+
 export type GalleryLayout = 'masonry' | 'grid' | 'single' | 'horizontal' | 'staggered';
+export type ServicesLayout = 'cards' | 'list' | 'grid' | 'minimal';
+export type GalleryTextPosition = 'overlay' | 'bottom' | 'side' | 'hover';
+
+export interface GalleryImage {
+  url: string;
+  caption: string;
+}
+
+export interface GalleryTypography {
+  captionSize: string;
+  mobileCaptionSize: string;
+}
 
 export interface SiteContent {
   // Brand
@@ -78,10 +100,15 @@ export interface SiteContent {
 
   // Data
   services: ServiceItem[];
-  galleryImages: string[];
+  galleryImages: GalleryImage[];
   galleryLayout: GalleryLayout;
+  mobileGalleryLayout: GalleryLayout;
+  galleryTextPosition: GalleryTextPosition;
+  galleryTypography: GalleryTypography;
+  servicesLayout: ServicesLayout;
   serviceTypography: ServiceTypography;
   globalTypography: GlobalTypography;
+  mobileTypography: MobileTypography;
 
   extraCosts: {
     curve: string;

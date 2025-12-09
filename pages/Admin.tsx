@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { SiteContent, Booking, SiteColors, HeroSettings, ServiceTypography, GlobalTypography, GalleryLayout } from '../types';
+import { SiteContent, Booking, SiteColors, HeroSettings, ServiceTypography, GlobalTypography, MobileTypography, GalleryLayout, ServicesLayout, GalleryTextPosition, GalleryTypography, GalleryImage } from '../types';
 import { getContent, saveContent, getBookings } from '../services/storageService';
 import { Save, LogOut, Lock, RefreshCcw, Plus, Trash2, ChevronUp, ChevronDown, Download, Copy } from 'lucide-react';
 
@@ -50,6 +50,19 @@ export const Admin: React.FC<AdminProps> = ({ onLogout, refreshContent }) => {
       bodyTextSize: '16px',
       footerTextSize: '14px',
     };
+    const defaultMobileTypography = {
+      navMenuSize: '10px',
+      navSubtitleSize: '8px',
+      sectionTitleSize: '20px',
+      bodyTextSize: '14px',
+      footerTextSize: '12px',
+      heroTitleSize: '10px',
+      heroSubtitleSize: '10px'
+    };
+    const defaultGalleryTypography = {
+      captionSize: '14px',
+      mobileCaptionSize: '12px'
+    };
 
     setContent({
         ...prev,
@@ -59,7 +72,12 @@ export const Admin: React.FC<AdminProps> = ({ onLogout, refreshContent }) => {
         globalBackgroundOpacity: prev.globalBackgroundOpacity || '40',
         galleryImages: prev.galleryImages || [],
         galleryLayout: prev.galleryLayout || 'masonry',
-        formspreeId: prev.formspreeId || ''
+        mobileGalleryLayout: prev.mobileGalleryLayout || 'single',
+        galleryTextPosition: prev.galleryTextPosition || 'bottom',
+        galleryTypography: { ...defaultGalleryTypography, ...prev.galleryTypography },
+        servicesLayout: prev.servicesLayout || 'cards',
+        formspreeId: prev.formspreeId || '',
+        mobileTypography: { ...defaultMobileTypography, ...prev.mobileTypography }
     });
   }, []);
 
@@ -105,6 +123,13 @@ export const Admin: React.FC<AdminProps> = ({ onLogout, refreshContent }) => {
     }));
   };
 
+  const handleMobileTypographyChange = (field: keyof MobileTypography, value: string) => {
+    setContent(prev => ({
+        ...prev,
+        mobileTypography: { ...prev.mobileTypography, [field]: value }
+    }));
+  };
+
   const handleColorChange = (field: keyof SiteColors, value: string) => {
     setContent(prev => ({
       ...prev,
@@ -120,7 +145,7 @@ export const Admin: React.FC<AdminProps> = ({ onLogout, refreshContent }) => {
   };
 
   const handleAddGalleryImage = () => {
-    const newImages = [...(content.galleryImages || []), ''];
+    const newImages = [...(content.galleryImages || []), { url: '', caption: '' }];
     setContent(prev => ({ ...prev, galleryImages: newImages }));
   };
 
@@ -129,9 +154,9 @@ export const Admin: React.FC<AdminProps> = ({ onLogout, refreshContent }) => {
     setContent(prev => ({ ...prev, galleryImages: newImages }));
   };
 
-  const handleGalleryImageChange = (index: number, value: string) => {
+  const handleGalleryImageChange = (index: number, field: 'url' | 'caption', value: string) => {
     const newImages = [...content.galleryImages];
-    newImages[index] = value;
+    newImages[index][field] = value;
     setContent(prev => ({ ...prev, galleryImages: newImages }));
   };
 
@@ -141,6 +166,13 @@ export const Admin: React.FC<AdminProps> = ({ onLogout, refreshContent }) => {
     if (newIndex < 0 || newIndex >= newImages.length) return;
     [newImages[index], newImages[newIndex]] = [newImages[newIndex], newImages[index]];
     setContent(prev => ({ ...prev, galleryImages: newImages }));
+  };
+
+  const handleGalleryTypographyChange = (field: keyof GalleryTypography, value: string) => {
+    setContent(prev => ({
+        ...prev,
+        galleryTypography: { ...prev.galleryTypography, [field]: value }
+    }));
   };
 
   const handleExportSettings = () => {
@@ -373,6 +405,76 @@ export const GALLERY_IMAGES = INITIAL_CONTENT.galleryImages;
                 </div>
              </div>
            </section>
+
+           {/* Mobile Typography */}
+           <section className="space-y-6">
+             <h3 className="font-sans text-sm tracking-[0.2em] border-l-2 border-accent pl-4 text-primary uppercase">Mobile Typography (手機版文字大小)</h3>
+             <div className="grid md:grid-cols-3 gap-6">
+                <div>
+                   <label className="block text-xs text-secondary mb-2">選單文字大小 (Nav Size)</label>
+                   <input
+                     className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-sans"
+                     value={content.mobileTypography?.navMenuSize || '10px'}
+                     onChange={(e) => handleMobileTypographyChange('navMenuSize', e.target.value)}
+                     placeholder="e.g. 10px"
+                   />
+                </div>
+                <div>
+                   <label className="block text-xs text-secondary mb-2">選單副標大小 (Nav Sub)</label>
+                   <input
+                     className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-sans"
+                     value={content.mobileTypography?.navSubtitleSize || '8px'}
+                     onChange={(e) => handleMobileTypographyChange('navSubtitleSize', e.target.value)}
+                     placeholder="e.g. 8px"
+                   />
+                </div>
+                <div>
+                   <label className="block text-xs text-secondary mb-2">區塊標題大小 (Section)</label>
+                   <input
+                     className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-sans"
+                     value={content.mobileTypography?.sectionTitleSize || '20px'}
+                     onChange={(e) => handleMobileTypographyChange('sectionTitleSize', e.target.value)}
+                     placeholder="e.g. 20px"
+                   />
+                </div>
+                <div>
+                   <label className="block text-xs text-secondary mb-2">內文大小 (Body)</label>
+                   <input
+                     className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-sans"
+                     value={content.mobileTypography?.bodyTextSize || '14px'}
+                     onChange={(e) => handleMobileTypographyChange('bodyTextSize', e.target.value)}
+                     placeholder="e.g. 14px"
+                   />
+                </div>
+                <div>
+                   <label className="block text-xs text-secondary mb-2">頁尾文字大小 (Footer)</label>
+                   <input
+                     className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-sans"
+                     value={content.mobileTypography?.footerTextSize || '12px'}
+                     onChange={(e) => handleMobileTypographyChange('footerTextSize', e.target.value)}
+                     placeholder="e.g. 12px"
+                   />
+                </div>
+                <div>
+                   <label className="block text-xs text-secondary mb-2">首頁主標題 (Hero Title)</label>
+                   <input
+                     className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-sans"
+                     value={content.mobileTypography?.heroTitleSize || '10px'}
+                     onChange={(e) => handleMobileTypographyChange('heroTitleSize', e.target.value)}
+                     placeholder="e.g. 10px"
+                   />
+                </div>
+                <div>
+                   <label className="block text-xs text-secondary mb-2">首頁副標題 (Hero Subtitle)</label>
+                   <input
+                     className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-sans"
+                     value={content.mobileTypography?.heroSubtitleSize || '10px'}
+                     onChange={(e) => handleMobileTypographyChange('heroSubtitleSize', e.target.value)}
+                     placeholder="e.g. 10px"
+                   />
+                </div>
+             </div>
+           </section>
          </div>
       )}
 
@@ -540,6 +642,32 @@ export const GALLERY_IMAGES = INITIAL_CONTENT.galleryImages;
             </div>
           </section>
 
+          {/* Services Layout */}
+          <section className="space-y-6">
+            <h3 className="font-sans text-sm tracking-[0.2em] border-l-2 border-primary pl-4 text-primary uppercase">Services Layout (服務頁面排版)</h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {[
+                { value: 'cards', label: '卡片式', desc: 'Cards - 經典卡片排列' },
+                { value: 'list', label: '列表式', desc: 'List - 詳細列表展示' },
+                { value: 'grid', label: '網格式', desc: 'Grid - 簡潔網格排列' },
+                { value: 'minimal', label: '極簡式', desc: 'Minimal - 極簡風格' }
+              ].map((layout) => (
+                <button
+                  key={layout.value}
+                  onClick={() => setContent(prev => ({ ...prev, servicesLayout: layout.value as ServicesLayout }))}
+                  className={`p-4 border-2 transition-all text-left ${
+                    content.servicesLayout === layout.value
+                      ? 'border-primary bg-primary/5'
+                      : 'border-line hover:border-secondary'
+                  }`}
+                >
+                  <div className="font-sans text-sm tracking-wide text-primary mb-1">{layout.label}</div>
+                  <div className="text-xs text-secondary">{layout.desc}</div>
+                </button>
+              ))}
+            </div>
+          </section>
+
           {/* Color Palette */}
           <section className="space-y-6">
             <h3 className="font-sans text-sm tracking-[0.2em] border-l-2 border-primary pl-4 text-primary uppercase">Color Scheme (配色設定)</h3>
@@ -640,10 +768,10 @@ export const GALLERY_IMAGES = INITIAL_CONTENT.galleryImages;
 
       {activeTab === 'gallery' && (
         <div className="space-y-8 animate-fade-in">
-          {/* Layout Selection */}
+          {/* Desktop Layout Selection */}
           <section className="space-y-6 bg-white p-6 border border-line">
             <h3 className="font-sans text-sm tracking-[0.2em] border-l-2 border-primary pl-4 text-primary uppercase">
-              Gallery Layout (作品集排版方式)
+              桌面版 Gallery Layout (Desktop)
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
               {[
@@ -669,6 +797,90 @@ export const GALLERY_IMAGES = INITIAL_CONTENT.galleryImages;
             </div>
           </section>
 
+          {/* Mobile Layout Selection */}
+          <section className="space-y-6 bg-white p-6 border border-line">
+            <h3 className="font-sans text-sm tracking-[0.2em] border-l-2 border-accent pl-4 text-primary uppercase">
+              手機版 Gallery Layout (Mobile)
+            </h3>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+              {[
+                { value: 'masonry', label: '瀑布流', desc: 'Masonry - 自然錯落排列' },
+                { value: 'grid', label: '網格', desc: 'Grid - 整齊的網格排列' },
+                { value: 'single', label: '單欄', desc: 'Single Column - 大圖展示' },
+                { value: 'horizontal', label: '橫向滾動', desc: 'Horizontal - 水平滑動' },
+                { value: 'staggered', label: '交錯', desc: 'Staggered - 大小交錯' }
+              ].map((layout) => (
+                <button
+                  key={layout.value}
+                  onClick={() => setContent(prev => ({ ...prev, mobileGalleryLayout: layout.value as GalleryLayout }))}
+                  className={`p-4 border-2 transition-all text-left ${
+                    content.mobileGalleryLayout === layout.value
+                      ? 'border-accent bg-accent/5'
+                      : 'border-line hover:border-secondary'
+                  }`}
+                >
+                  <div className="font-sans text-sm tracking-wide text-primary mb-1">{layout.label}</div>
+                  <div className="text-xs text-secondary">{layout.desc}</div>
+                </button>
+              ))}
+            </div>
+          </section>
+
+          {/* Gallery Text Position */}
+          <section className="space-y-6">
+            <h3 className="font-sans text-sm tracking-[0.2em] border-l-2 border-primary pl-4 text-primary uppercase">
+              Caption Position (圖片說明文字位置)
+            </h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {[
+                { value: 'overlay', label: '覆蓋', desc: 'Overlay - 覆蓋於圖片上' },
+                { value: 'bottom', label: '底部', desc: 'Bottom - 圖片下方' },
+                { value: 'side', label: '側邊', desc: 'Side - 圖片旁邊' },
+                { value: 'hover', label: '懸停', desc: 'Hover - 滑鼠移入顯示' }
+              ].map((position) => (
+                <button
+                  key={position.value}
+                  onClick={() => setContent(prev => ({ ...prev, galleryTextPosition: position.value as GalleryTextPosition }))}
+                  className={`p-4 border-2 transition-all text-left ${
+                    content.galleryTextPosition === position.value
+                      ? 'border-primary bg-primary/5'
+                      : 'border-line hover:border-secondary'
+                  }`}
+                >
+                  <div className="font-sans text-sm tracking-wide text-primary mb-1">{position.label}</div>
+                  <div className="text-xs text-secondary">{position.desc}</div>
+                </button>
+              ))}
+            </div>
+          </section>
+
+          {/* Gallery Typography */}
+          <section className="space-y-6">
+            <h3 className="font-sans text-sm tracking-[0.2em] border-l-2 border-primary pl-4 text-primary uppercase">
+              Caption Typography (說明文字字體設定)
+            </h3>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-xs text-secondary mb-2">桌面版說明文字大小 (Desktop Caption Size)</label>
+                <input
+                  className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-sans"
+                  value={content.galleryTypography?.captionSize || '14px'}
+                  onChange={(e) => handleGalleryTypographyChange('captionSize', e.target.value)}
+                  placeholder="e.g. 14px or 1rem"
+                />
+              </div>
+              <div>
+                <label className="block text-xs text-secondary mb-2">手機版說明文字大小 (Mobile Caption Size)</label>
+                <input
+                  className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-sans"
+                  value={content.galleryTypography?.mobileCaptionSize || '12px'}
+                  onChange={(e) => handleGalleryTypographyChange('mobileCaptionSize', e.target.value)}
+                  placeholder="e.g. 12px or 0.85rem"
+                />
+              </div>
+            </div>
+          </section>
+
           {/* Image Management */}
           <section className="space-y-6">
             <div className="flex justify-between items-center">
@@ -690,7 +902,7 @@ export const GALLERY_IMAGES = INITIAL_CONTENT.galleryImages;
               </div>
             ) : (
               <div className="grid md:grid-cols-2 gap-6">
-                {content.galleryImages.map((imageUrl, index) => (
+                {content.galleryImages.map((image, index) => (
                   <div key={index} className="bg-white border border-line p-6 space-y-4">
                     <div className="flex justify-between items-start">
                       <span className="text-xs text-secondary font-sans">#{index + 1}</span>
@@ -726,16 +938,27 @@ export const GALLERY_IMAGES = INITIAL_CONTENT.galleryImages;
                       <input
                         type="text"
                         className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-sans text-sm"
-                        value={imageUrl}
-                        onChange={(e) => handleGalleryImageChange(index, e.target.value)}
+                        value={image.url}
+                        onChange={(e) => handleGalleryImageChange(index, 'url', e.target.value)}
                         placeholder="https://example.com/image.jpg"
                       />
                     </div>
 
-                    {imageUrl && (
+                    <div>
+                      <label className="block text-xs text-secondary mb-2">圖片說明文字 (Caption)</label>
+                      <input
+                        type="text"
+                        className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-serif text-sm"
+                        value={image.caption}
+                        onChange={(e) => handleGalleryImageChange(index, 'caption', e.target.value)}
+                        placeholder="輸入圖片說明..."
+                      />
+                    </div>
+
+                    {image.url && (
                       <div className="relative group">
                         <img
-                          src={imageUrl}
+                          src={image.url}
                           alt={`Gallery ${index + 1}`}
                           className="w-full h-48 object-cover"
                           onError={(e) => {
@@ -746,6 +969,11 @@ export const GALLERY_IMAGES = INITIAL_CONTENT.galleryImages;
                         <div className="hidden text-center py-12 bg-background text-secondary text-sm">
                           圖片載入失敗，請檢查 URL 是否正確
                         </div>
+                        {image.caption && (
+                          <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-2 text-xs">
+                            {image.caption}
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>
