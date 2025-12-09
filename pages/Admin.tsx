@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { SiteContent, Booking, SiteColors, HeroSettings, ServiceTypography, GlobalTypography } from '../types';
 import { getContent, saveContent, getBookings } from '../services/storageService';
-import { Save, LogOut, Lock, RefreshCcw } from 'lucide-react';
+import { Save, LogOut, Lock, RefreshCcw, Plus, Trash2, ChevronUp, ChevronDown } from 'lucide-react';
 
 interface AdminProps {
   onLogout: () => void;
@@ -14,7 +14,7 @@ export const Admin: React.FC<AdminProps> = ({ onLogout, refreshContent }) => {
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
 
-  const [activeTab, setActiveTab] = useState<'content' | 'bookings' | 'design' | 'typography'>('bookings');
+  const [activeTab, setActiveTab] = useState<'content' | 'bookings' | 'design' | 'typography' | 'gallery'>('bookings');
   const [content, setContent] = useState<SiteContent>(getContent());
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [isSaving, setIsSaving] = useState(false);
@@ -22,7 +22,7 @@ export const Admin: React.FC<AdminProps> = ({ onLogout, refreshContent }) => {
   useEffect(() => {
     setBookings(getBookings());
     const prev = getContent();
-    
+
     // Merge with defaults to ensure all fields exist
     const defaultHeroSettings = {
         titleFontSize: '64px',
@@ -54,7 +54,8 @@ export const Admin: React.FC<AdminProps> = ({ onLogout, refreshContent }) => {
         heroSettings: { ...defaultHeroSettings, ...prev.heroSettings },
         serviceTypography: { ...defaultServiceTypography, ...prev.serviceTypography },
         globalTypography: { ...defaultGlobalTypography, ...prev.globalTypography },
-        globalBackgroundOpacity: prev.globalBackgroundOpacity || '40'
+        globalBackgroundOpacity: prev.globalBackgroundOpacity || '40',
+        galleryImages: prev.galleryImages || []
     });
   }, []);
 
@@ -114,6 +115,30 @@ export const Admin: React.FC<AdminProps> = ({ onLogout, refreshContent }) => {
     setContent(prev => ({ ...prev, services: newServices }));
   };
 
+  const handleAddGalleryImage = () => {
+    const newImages = [...(content.galleryImages || []), ''];
+    setContent(prev => ({ ...prev, galleryImages: newImages }));
+  };
+
+  const handleDeleteGalleryImage = (index: number) => {
+    const newImages = content.galleryImages.filter((_, i) => i !== index);
+    setContent(prev => ({ ...prev, galleryImages: newImages }));
+  };
+
+  const handleGalleryImageChange = (index: number, value: string) => {
+    const newImages = [...content.galleryImages];
+    newImages[index] = value;
+    setContent(prev => ({ ...prev, galleryImages: newImages }));
+  };
+
+  const handleMoveGalleryImage = (index: number, direction: 'up' | 'down') => {
+    const newImages = [...content.galleryImages];
+    const newIndex = direction === 'up' ? index - 1 : index + 1;
+    if (newIndex < 0 || newIndex >= newImages.length) return;
+    [newImages[index], newImages[newIndex]] = [newImages[newIndex], newImages[index]];
+    setContent(prev => ({ ...prev, galleryImages: newImages }));
+  };
+
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background p-6">
@@ -155,25 +180,31 @@ export const Admin: React.FC<AdminProps> = ({ onLogout, refreshContent }) => {
       </div>
 
       <div className="flex flex-wrap gap-4 mb-12">
-        <button 
+        <button
           onClick={() => setActiveTab('bookings')}
           className={`px-8 py-3 text-xs tracking-widest transition-colors ${activeTab === 'bookings' ? 'bg-primary text-white' : 'bg-transparent text-primary border border-line hover:border-primary'}`}
         >
           BOOKINGS ({bookings.length})
         </button>
-        <button 
+        <button
           onClick={() => setActiveTab('content')}
           className={`px-8 py-3 text-xs tracking-widest transition-colors ${activeTab === 'content' ? 'bg-primary text-white' : 'bg-transparent text-primary border border-line hover:border-primary'}`}
         >
           CONTENT
         </button>
-        <button 
+        <button
+          onClick={() => setActiveTab('gallery')}
+          className={`px-8 py-3 text-xs tracking-widest transition-colors ${activeTab === 'gallery' ? 'bg-primary text-white' : 'bg-transparent text-primary border border-line hover:border-primary'}`}
+        >
+          GALLERY ({content.galleryImages?.length || 0})
+        </button>
+        <button
           onClick={() => setActiveTab('design')}
           className={`px-8 py-3 text-xs tracking-widest transition-colors ${activeTab === 'design' ? 'bg-primary text-white' : 'bg-transparent text-primary border border-line hover:border-primary'}`}
         >
           DESIGN
         </button>
-        <button 
+        <button
           onClick={() => setActiveTab('typography')}
           className={`px-8 py-3 text-xs tracking-widest transition-colors ${activeTab === 'typography' ? 'bg-primary text-white' : 'bg-transparent text-primary border border-line hover:border-primary'}`}
         >
@@ -573,6 +604,104 @@ export const Admin: React.FC<AdminProps> = ({ onLogout, refreshContent }) => {
                   />
                 </div>
               </div>
+            </div>
+          </section>
+        </div>
+      )}
+
+      {activeTab === 'gallery' && (
+        <div className="space-y-8 animate-fade-in">
+          <section className="space-y-6">
+            <div className="flex justify-between items-center">
+              <h3 className="font-sans text-sm tracking-[0.2em] border-l-2 border-primary pl-4 text-primary uppercase">
+                Gallery Images (作品集圖片管理)
+              </h3>
+              <button
+                onClick={handleAddGalleryImage}
+                className="flex items-center gap-2 px-6 py-3 bg-primary text-white text-xs tracking-widest hover:bg-accent transition-colors"
+              >
+                <Plus size={14} /> ADD IMAGE
+              </button>
+            </div>
+
+            {!content.galleryImages || content.galleryImages.length === 0 ? (
+              <div className="text-center py-16 bg-white border border-line">
+                <p className="font-serif text-secondary italic mb-4">目前沒有圖片</p>
+                <p className="text-xs text-secondary">點擊上方「ADD IMAGE」按鈕添加第一張作品圖片</p>
+              </div>
+            ) : (
+              <div className="grid md:grid-cols-2 gap-6">
+                {content.galleryImages.map((imageUrl, index) => (
+                  <div key={index} className="bg-white border border-line p-6 space-y-4">
+                    <div className="flex justify-between items-start">
+                      <span className="text-xs text-secondary font-sans">#{index + 1}</span>
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => handleMoveGalleryImage(index, 'up')}
+                          disabled={index === 0}
+                          className={`p-1 ${index === 0 ? 'text-line cursor-not-allowed' : 'text-secondary hover:text-primary'}`}
+                          title="上移"
+                        >
+                          <ChevronUp size={16} />
+                        </button>
+                        <button
+                          onClick={() => handleMoveGalleryImage(index, 'down')}
+                          disabled={index === content.galleryImages.length - 1}
+                          className={`p-1 ${index === content.galleryImages.length - 1 ? 'text-line cursor-not-allowed' : 'text-secondary hover:text-primary'}`}
+                          title="下移"
+                        >
+                          <ChevronDown size={16} />
+                        </button>
+                        <button
+                          onClick={() => handleDeleteGalleryImage(index)}
+                          className="p-1 text-red-600 hover:text-red-800"
+                          title="刪除"
+                        >
+                          <Trash2 size={16} />
+                        </button>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs text-secondary mb-2">圖片連結 (Image URL)</label>
+                      <input
+                        type="text"
+                        className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-sans text-sm"
+                        value={imageUrl}
+                        onChange={(e) => handleGalleryImageChange(index, e.target.value)}
+                        placeholder="https://example.com/image.jpg"
+                      />
+                    </div>
+
+                    {imageUrl && (
+                      <div className="relative group">
+                        <img
+                          src={imageUrl}
+                          alt={`Gallery ${index + 1}`}
+                          className="w-full h-48 object-cover"
+                          onError={(e) => {
+                            e.currentTarget.style.display = 'none';
+                            e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                          }}
+                        />
+                        <div className="hidden text-center py-12 bg-background text-secondary text-sm">
+                          圖片載入失敗，請檢查 URL 是否正確
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+
+            <div className="bg-background p-6 text-sm text-secondary space-y-2">
+              <p className="font-sans font-light tracking-wide">💡 使用提示：</p>
+              <ul className="font-serif space-y-1 pl-4">
+                <li>• 建議使用高解析度圖片以確保顯示品質</li>
+                <li>• 可以使用圖床服務（如 Imgur、Unsplash）或自己的圖片連結</li>
+                <li>• 使用「上移」「下移」按鈕調整圖片順序</li>
+                <li>• 修改後記得點擊右下角的「SAVE CHANGES」儲存</li>
+              </ul>
             </div>
           </section>
         </div>

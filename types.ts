@@ -53,7 +53,7 @@ export interface SiteContent {
   // Brand
   logoTitle: string;
   logoSubtitle: string;
-  
+
   // Visuals
   globalBackgroundImage: string;
   globalBackgroundOpacity: string;
@@ -66,18 +66,19 @@ export interface SiteContent {
   heroDescription: string;
   heroImage: string;
   heroSettings: HeroSettings;
-  
+
   // Content
   philosophyTitle: string;
   aboutText: string;
   constructionRequirements: string;
   contactInfo: string;
-  
+
   // Data
   services: ServiceItem[];
+  galleryImages: string[];
   serviceTypography: ServiceTypography;
   globalTypography: GlobalTypography;
-  
+
   extraCosts: {
     curve: string;
     edge: string;
