@@ -73,6 +73,47 @@ export interface GalleryTypography {
   mobileCaptionSize: string;
 }
 
+export interface WorkflowStep {
+  number: string;
+  title: string;
+  description: string;
+}
+
+export interface ServicesPageContent {
+  introText: string;
+  additionalServicesTitle: string;
+  additionalServicesSubtitle: string;
+  workflowTitle: string;
+  workflowSteps: WorkflowStep[];
+  requirementsTitle: string;
+  requirementsIntro: string;
+  requirementsButtonText: string;
+}
+
+export interface ServicesPageTypography {
+  introSize: string;
+  additionalTitleSize: string;
+  additionalItemSize: string;
+  workflowTitleSize: string;
+  workflowNumberSize: string;
+  workflowStepTitleSize: string;
+  workflowStepDescSize: string;
+  requirementsTitleSize: string;
+  requirementsTextSize: string;
+}
+
+export interface MobileServicesTypography {
+  introSize: string;
+  additionalTitleSize: string;
+  additionalItemSize: string;
+  workflowTitleSize: string;
+  workflowNumberSize: string;
+  workflowStepTitleSize: string;
+  workflowStepDescSize: string;
+  requirementsTitleSize: string;
+  requirementsTextSize: string;
+}
+
 export interface SiteContent {
   // Brand
   logoTitle: string;
@@ -109,6 +150,11 @@ export interface SiteContent {
   serviceTypography: ServiceTypography;
   globalTypography: GlobalTypography;
   mobileTypography: MobileTypography;
+
+  // Services Page
+  servicesPageContent: ServicesPageContent;
+  servicesPageTypography: ServicesPageTypography;
+  mobileServicesTypography: MobileServicesTypography;
 
   extraCosts: {
     curve: string;

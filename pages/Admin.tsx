@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { SiteContent, Booking, SiteColors, HeroSettings, ServiceTypography, GlobalTypography, MobileTypography, GalleryLayout, ServicesLayout, GalleryTextPosition, GalleryTypography, GalleryImage } from '../types';
+import { SiteContent, Booking, SiteColors, HeroSettings, ServiceTypography, GlobalTypography, MobileTypography, GalleryLayout, ServicesLayout, GalleryTextPosition, GalleryTypography, GalleryImage, ServicesPageContent, ServicesPageTypography, MobileServicesTypography, WorkflowStep } from '../types';
 import { getContent, saveContent, getBookings } from '../services/storageService';
 import { Save, LogOut, Lock, RefreshCcw, Plus, Trash2, ChevronUp, ChevronDown, Download, Copy } from 'lucide-react';
 
@@ -63,6 +63,43 @@ export const Admin: React.FC<AdminProps> = ({ onLogout, refreshContent }) => {
       captionSize: '14px',
       mobileCaptionSize: '12px'
     };
+    const defaultServicesPageContent = {
+      introText: '我們提供多種藝術岩面與塗裝服務，從材質的選擇到最終的呈現，都致力於將歐洲工藝與現代美學結合。',
+      additionalServicesTitle: 'ADDITIONAL SERVICES',
+      additionalServicesSubtitle: '客製化加工與外縣市服務',
+      workflowTitle: 'WORKFLOW',
+      workflowSteps: [
+        { number: '01', title: '諮詢與評估', description: '提供您欲製作的樣式、時間、地點，以及現場牆面照片（遠近照）與尺寸圖面。我們將依據資訊進行初步分析與報價。' },
+        { number: '02', title: '現場確認與備料', description: '確認報價後，進行工期安排。請確保場地符合施工前置需求（如封板、油漆底處理）。' },
+        { number: '03', title: '進場施作', description: '專業美術團隊進場。施工過程會有粉塵打磨及土料沾染，請安排在清潔工程之前。' },
+        { number: '04', title: '完工驗收', description: '完成藝術岩面製作，進行細節修整與最終驗收。' }
+      ],
+      requirementsTitle: 'REQUIREMENTS',
+      requirementsIntro: '為確保最佳的施作效果與品質，請務必詳閱施工前置需求與注意事項。良好的底材處理是完美藝術牆面的基礎。',
+      requirementsButtonText: '立即預約'
+    };
+    const defaultServicesPageTypography = {
+      introSize: '16px',
+      additionalTitleSize: '24px',
+      additionalItemSize: '14px',
+      workflowTitleSize: '24px',
+      workflowNumberSize: '48px',
+      workflowStepTitleSize: '20px',
+      workflowStepDescSize: '16px',
+      requirementsTitleSize: '24px',
+      requirementsTextSize: '14px'
+    };
+    const defaultMobileServicesTypography = {
+      introSize: '14px',
+      additionalTitleSize: '20px',
+      additionalItemSize: '12px',
+      workflowTitleSize: '20px',
+      workflowNumberSize: '36px',
+      workflowStepTitleSize: '18px',
+      workflowStepDescSize: '14px',
+      requirementsTitleSize: '20px',
+      requirementsTextSize: '12px'
+    };
 
     setContent({
         ...prev,
@@ -77,7 +114,10 @@ export const Admin: React.FC<AdminProps> = ({ onLogout, refreshContent }) => {
         galleryTypography: { ...defaultGalleryTypography, ...prev.galleryTypography },
         servicesLayout: prev.servicesLayout || 'cards',
         formspreeId: prev.formspreeId || '',
-        mobileTypography: { ...defaultMobileTypography, ...prev.mobileTypography }
+        mobileTypography: { ...defaultMobileTypography, ...prev.mobileTypography },
+        servicesPageContent: { ...defaultServicesPageContent, ...(prev.servicesPageContent || {}) },
+        servicesPageTypography: { ...defaultServicesPageTypography, ...(prev.servicesPageTypography || {}) },
+        mobileServicesTypography: { ...defaultMobileServicesTypography, ...(prev.mobileServicesTypography || {}) }
     });
   }, []);
 
@@ -172,6 +212,36 @@ export const Admin: React.FC<AdminProps> = ({ onLogout, refreshContent }) => {
     setContent(prev => ({
         ...prev,
         galleryTypography: { ...prev.galleryTypography, [field]: value }
+    }));
+  };
+
+  const handleServicesPageContentChange = (field: keyof ServicesPageContent, value: string) => {
+    setContent(prev => ({
+        ...prev,
+        servicesPageContent: { ...prev.servicesPageContent, [field]: value }
+    }));
+  };
+
+  const handleWorkflowStepChange = (index: number, field: keyof WorkflowStep, value: string) => {
+    const newSteps = [...content.servicesPageContent.workflowSteps];
+    newSteps[index][field] = value;
+    setContent(prev => ({
+        ...prev,
+        servicesPageContent: { ...prev.servicesPageContent, workflowSteps: newSteps }
+    }));
+  };
+
+  const handleServicesPageTypographyChange = (field: keyof ServicesPageTypography, value: string) => {
+    setContent(prev => ({
+        ...prev,
+        servicesPageTypography: { ...prev.servicesPageTypography, [field]: value }
+    }));
+  };
+
+  const handleMobileServicesTypographyChange = (field: keyof MobileServicesTypography, value: string) => {
+    setContent(prev => ({
+        ...prev,
+        mobileServicesTypography: { ...prev.mobileServicesTypography, [field]: value }
     }));
   };
 
