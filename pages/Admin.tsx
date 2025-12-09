@@ -537,6 +537,184 @@ export const GALLERY_IMAGES = INITIAL_CONTENT.galleryImages;
                 </div>
              </div>
            </section>
+
+           {/* Services Page Typography - Desktop */}
+           <section className="space-y-6">
+             <h3 className="font-sans text-sm tracking-[0.2em] border-l-2 border-primary pl-4 text-primary uppercase">Services Page Typography - 桌面版 (Desktop)</h3>
+             <div className="grid md:grid-cols-3 gap-6">
+                <div>
+                   <label className="block text-xs text-secondary mb-2">介紹文字 (Intro)</label>
+                   <input
+                     className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-sans"
+                     value={content.servicesPageTypography?.introSize || '16px'}
+                     onChange={(e) => handleServicesPageTypographyChange('introSize', e.target.value)}
+                     placeholder="e.g. 16px"
+                   />
+                </div>
+                <div>
+                   <label className="block text-xs text-secondary mb-2">Additional 標題</label>
+                   <input
+                     className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-sans"
+                     value={content.servicesPageTypography?.additionalTitleSize || '24px'}
+                     onChange={(e) => handleServicesPageTypographyChange('additionalTitleSize', e.target.value)}
+                     placeholder="e.g. 24px"
+                   />
+                </div>
+                <div>
+                   <label className="block text-xs text-secondary mb-2">Additional 項目</label>
+                   <input
+                     className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-sans"
+                     value={content.servicesPageTypography?.additionalItemSize || '14px'}
+                     onChange={(e) => handleServicesPageTypographyChange('additionalItemSize', e.target.value)}
+                     placeholder="e.g. 14px"
+                   />
+                </div>
+                <div>
+                   <label className="block text-xs text-secondary mb-2">Workflow 標題</label>
+                   <input
+                     className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-sans"
+                     value={content.servicesPageTypography?.workflowTitleSize || '24px'}
+                     onChange={(e) => handleServicesPageTypographyChange('workflowTitleSize', e.target.value)}
+                     placeholder="e.g. 24px"
+                   />
+                </div>
+                <div>
+                   <label className="block text-xs text-secondary mb-2">Workflow 編號</label>
+                   <input
+                     className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-sans"
+                     value={content.servicesPageTypography?.workflowNumberSize || '48px'}
+                     onChange={(e) => handleServicesPageTypographyChange('workflowNumberSize', e.target.value)}
+                     placeholder="e.g. 48px"
+                   />
+                </div>
+                <div>
+                   <label className="block text-xs text-secondary mb-2">Workflow 步驟標題</label>
+                   <input
+                     className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-sans"
+                     value={content.servicesPageTypography?.workflowStepTitleSize || '20px'}
+                     onChange={(e) => handleServicesPageTypographyChange('workflowStepTitleSize', e.target.value)}
+                     placeholder="e.g. 20px"
+                   />
+                </div>
+                <div>
+                   <label className="block text-xs text-secondary mb-2">Workflow 步驟描述</label>
+                   <input
+                     className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-sans"
+                     value={content.servicesPageTypography?.workflowStepDescSize || '16px'}
+                     onChange={(e) => handleServicesPageTypographyChange('workflowStepDescSize', e.target.value)}
+                     placeholder="e.g. 16px"
+                   />
+                </div>
+                <div>
+                   <label className="block text-xs text-secondary mb-2">Requirements 標題</label>
+                   <input
+                     className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-sans"
+                     value={content.servicesPageTypography?.requirementsTitleSize || '24px'}
+                     onChange={(e) => handleServicesPageTypographyChange('requirementsTitleSize', e.target.value)}
+                     placeholder="e.g. 24px"
+                   />
+                </div>
+                <div>
+                   <label className="block text-xs text-secondary mb-2">Requirements 文字</label>
+                   <input
+                     className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-sans"
+                     value={content.servicesPageTypography?.requirementsTextSize || '14px'}
+                     onChange={(e) => handleServicesPageTypographyChange('requirementsTextSize', e.target.value)}
+                     placeholder="e.g. 14px"
+                   />
+                </div>
+             </div>
+           </section>
+
+           {/* Services Page Typography - Mobile */}
+           <section className="space-y-6 bg-white p-6 border border-line">
+             <h3 className="font-sans text-sm tracking-[0.2em] border-l-2 border-accent pl-4 text-primary uppercase">
+               Services Page Typography - 手機版 (Mobile)
+             </h3>
+             <div className="grid md:grid-cols-3 gap-6">
+                <div>
+                   <label className="block text-xs text-secondary mb-2">介紹文字 (Intro)</label>
+                   <input
+                     className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-sans"
+                     value={content.mobileServicesTypography?.introSize || '14px'}
+                     onChange={(e) => handleMobileServicesTypographyChange('introSize', e.target.value)}
+                     placeholder="e.g. 14px"
+                   />
+                </div>
+                <div>
+                   <label className="block text-xs text-secondary mb-2">Additional 標題</label>
+                   <input
+                     className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-sans"
+                     value={content.mobileServicesTypography?.additionalTitleSize || '20px'}
+                     onChange={(e) => handleMobileServicesTypographyChange('additionalTitleSize', e.target.value)}
+                     placeholder="e.g. 20px"
+                   />
+                </div>
+                <div>
+                   <label className="block text-xs text-secondary mb-2">Additional 項目</label>
+                   <input
+                     className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-sans"
+                     value={content.mobileServicesTypography?.additionalItemSize || '12px'}
+                     onChange={(e) => handleMobileServicesTypographyChange('additionalItemSize', e.target.value)}
+                     placeholder="e.g. 12px"
+                   />
+                </div>
+                <div>
+                   <label className="block text-xs text-secondary mb-2">Workflow 標題</label>
+                   <input
+                     className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-sans"
+                     value={content.mobileServicesTypography?.workflowTitleSize || '20px'}
+                     onChange={(e) => handleMobileServicesTypographyChange('workflowTitleSize', e.target.value)}
+                     placeholder="e.g. 20px"
+                   />
+                </div>
+                <div>
+                   <label className="block text-xs text-secondary mb-2">Workflow 編號</label>
+                   <input
+                     className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-sans"
+                     value={content.mobileServicesTypography?.workflowNumberSize || '36px'}
+                     onChange={(e) => handleMobileServicesTypographyChange('workflowNumberSize', e.target.value)}
+                     placeholder="e.g. 36px"
+                   />
+                </div>
+                <div>
+                   <label className="block text-xs text-secondary mb-2">Workflow 步驟標題</label>
+                   <input
+                     className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-sans"
+                     value={content.mobileServicesTypography?.workflowStepTitleSize || '18px'}
+                     onChange={(e) => handleMobileServicesTypographyChange('workflowStepTitleSize', e.target.value)}
+                     placeholder="e.g. 18px"
+                   />
+                </div>
+                <div>
+                   <label className="block text-xs text-secondary mb-2">Workflow 步驟描述</label>
+                   <input
+                     className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-sans"
+                     value={content.mobileServicesTypography?.workflowStepDescSize || '14px'}
+                     onChange={(e) => handleMobileServicesTypographyChange('workflowStepDescSize', e.target.value)}
+                     placeholder="e.g. 14px"
+                   />
+                </div>
+                <div>
+                   <label className="block text-xs text-secondary mb-2">Requirements 標題</label>
+                   <input
+                     className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-sans"
+                     value={content.mobileServicesTypography?.requirementsTitleSize || '20px'}
+                     onChange={(e) => handleMobileServicesTypographyChange('requirementsTitleSize', e.target.value)}
+                     placeholder="e.g. 20px"
+                   />
+                </div>
+                <div>
+                   <label className="block text-xs text-secondary mb-2">Requirements 文字</label>
+                   <input
+                     className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-sans"
+                     value={content.mobileServicesTypography?.requirementsTextSize || '12px'}
+                     onChange={(e) => handleMobileServicesTypographyChange('requirementsTextSize', e.target.value)}
+                     placeholder="e.g. 12px"
+                   />
+                </div>
+             </div>
+           </section>
          </div>
       )}
 
@@ -1187,6 +1365,118 @@ export const GALLERY_IMAGES = INITIAL_CONTENT.galleryImages;
                   📌 <strong>如何獲取 Form ID？</strong><br/>
                   請參考下方的詳細設定說明。
                 </p>
+              </div>
+            </div>
+          </section>
+
+          {/* Services Page Content */}
+          <section className="space-y-6">
+            <h3 className="font-sans text-sm tracking-[0.2em] border-l-2 border-primary pl-4 text-primary uppercase">Services Page (服務頁面內容)</h3>
+
+            <div className="space-y-6">
+              <div>
+                <label className="block text-xs text-secondary mb-2">頁面介紹文字 (Intro Text)</label>
+                <textarea
+                  className="w-full p-4 bg-white border border-line focus:border-primary outline-none font-serif"
+                  rows={2}
+                  value={content.servicesPageContent?.introText || ''}
+                  onChange={(e) => handleServicesPageContentChange('introText', e.target.value)}
+                />
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-xs text-secondary mb-2">ADDITIONAL SERVICES 標題</label>
+                  <input
+                    className="w-full p-4 bg-white border border-line focus:border-primary outline-none font-sans"
+                    value={content.servicesPageContent?.additionalServicesTitle || ''}
+                    onChange={(e) => handleServicesPageContentChange('additionalServicesTitle', e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs text-secondary mb-2">ADDITIONAL SERVICES 副標題</label>
+                  <input
+                    className="w-full p-4 bg-white border border-line focus:border-primary outline-none font-serif"
+                    value={content.servicesPageContent?.additionalServicesSubtitle || ''}
+                    onChange={(e) => handleServicesPageContentChange('additionalServicesSubtitle', e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs text-secondary mb-2">WORKFLOW 標題</label>
+                <input
+                  className="w-full p-4 bg-white border border-line focus:border-primary outline-none font-sans"
+                  value={content.servicesPageContent?.workflowTitle || ''}
+                  onChange={(e) => handleServicesPageContentChange('workflowTitle', e.target.value)}
+                />
+              </div>
+
+              <div className="space-y-4">
+                <label className="block text-xs text-secondary">WORKFLOW 步驟 (4個)</label>
+                {content.servicesPageContent?.workflowSteps?.map((step, index) => (
+                  <div key={index} className="bg-background p-6 space-y-4">
+                    <div className="flex items-center gap-4">
+                      <span className="text-sm text-primary font-sans">步驟 {index + 1}</span>
+                    </div>
+                    <div className="grid md:grid-cols-3 gap-4">
+                      <div>
+                        <label className="block text-xs text-secondary mb-2">編號</label>
+                        <input
+                          className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-display"
+                          value={step.number}
+                          onChange={(e) => handleWorkflowStepChange(index, 'number', e.target.value)}
+                        />
+                      </div>
+                      <div className="md:col-span-2">
+                        <label className="block text-xs text-secondary mb-2">標題</label>
+                        <input
+                          className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-serif"
+                          value={step.title}
+                          onChange={(e) => handleWorkflowStepChange(index, 'title', e.target.value)}
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-xs text-secondary mb-2">描述</label>
+                      <textarea
+                        className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-serif"
+                        rows={3}
+                        value={step.description}
+                        onChange={(e) => handleWorkflowStepChange(index, 'description', e.target.value)}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-xs text-secondary mb-2">REQUIREMENTS 標題</label>
+                  <input
+                    className="w-full p-4 bg-white border border-line focus:border-primary outline-none font-sans"
+                    value={content.servicesPageContent?.requirementsTitle || ''}
+                    onChange={(e) => handleServicesPageContentChange('requirementsTitle', e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs text-secondary mb-2">REQUIREMENTS 按鈕文字</label>
+                  <input
+                    className="w-full p-4 bg-white border border-line focus:border-primary outline-none font-serif"
+                    value={content.servicesPageContent?.requirementsButtonText || ''}
+                    onChange={(e) => handleServicesPageContentChange('requirementsButtonText', e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs text-secondary mb-2">REQUIREMENTS 介紹文字</label>
+                <textarea
+                  className="w-full p-4 bg-white border border-line focus:border-primary outline-none font-serif"
+                  rows={3}
+                  value={content.servicesPageContent?.requirementsIntro || ''}
+                  onChange={(e) => handleServicesPageContentChange('requirementsIntro', e.target.value)}
+                />
               </div>
             </div>
           </section>
