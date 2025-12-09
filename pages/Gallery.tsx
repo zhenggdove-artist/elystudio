@@ -127,7 +127,7 @@ export const Gallery: React.FC<GalleryProps> = ({ content }) => {
         // 瀑布流排列
         return (
           <div
-            className="columns-1 md:columns-2 lg:columns-3"
+            className="columns-1 md:columns-2 lg:columns-3 mx-auto w-full"
             style={{
               gap: `var(--gallery-spacing, ${spacing})`,
               columnGap: `var(--gallery-spacing, ${spacing})`
@@ -145,8 +145,11 @@ export const Gallery: React.FC<GalleryProps> = ({ content }) => {
         // 整齊的網格排列
         return (
           <div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-            style={{ gap: `var(--gallery-spacing, ${spacing})` }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-auto w-full"
+            style={{
+              gap: `var(--gallery-spacing, ${spacing})`,
+              gridAutoRows: 'minmax(0, auto)'
+            }}
           >
             {galleryImages.map((image, index) => (
               <div key={index} className={textPosition === 'side' ? '' : 'aspect-square'}>
@@ -159,7 +162,15 @@ export const Gallery: React.FC<GalleryProps> = ({ content }) => {
       case 'single':
         // 單欄大圖展示
         return (
-          <div className="max-w-4xl mx-auto" style={{ display: 'flex', flexDirection: 'column', gap: `var(--gallery-spacing, ${spacing})` }}>
+          <div
+            className="max-w-4xl mx-auto w-full"
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: `var(--gallery-spacing, ${spacing})`,
+              alignItems: 'center'
+            }}
+          >
             {galleryImages.map((image, index) => (
               <div key={index} className="w-full">
                 {imageElement(image, index)}
@@ -186,8 +197,12 @@ export const Gallery: React.FC<GalleryProps> = ({ content }) => {
         // 交錯大小排列
         return (
           <div
-            className="grid grid-cols-2 md:grid-cols-4"
-            style={{ gap: `var(--gallery-spacing, ${spacing})` }}
+            className="grid grid-cols-2 md:grid-cols-4 mx-auto"
+            style={{
+              gap: `var(--gallery-spacing, ${spacing})`,
+              gridAutoRows: 'minmax(150px, auto)',
+              width: '100%'
+            }}
           >
             {galleryImages.map((image, index) => {
               // 每3張中有1張大圖（佔2列2欄）
@@ -211,7 +226,7 @@ export const Gallery: React.FC<GalleryProps> = ({ content }) => {
       default:
         return (
           <div
-            className="columns-1 md:columns-2 lg:columns-3"
+            className="columns-1 md:columns-2 lg:columns-3 mx-auto w-full"
             style={{
               gap: `var(--gallery-spacing, ${spacing})`,
               columnGap: `var(--gallery-spacing, ${spacing})`
@@ -228,7 +243,7 @@ export const Gallery: React.FC<GalleryProps> = ({ content }) => {
   };
 
   return (
-    <div className="w-full pt-32 pb-24 px-6 md:px-12 max-w-[1440px] mx-auto animate-fade-in">
+    <div className="w-full min-h-screen pt-32 pb-24 px-6 md:px-12 max-w-[1440px] mx-auto animate-fade-in">
       <style>{`
         @media (max-width: 768px) {
           .gallery-container {
@@ -239,6 +254,10 @@ export const Gallery: React.FC<GalleryProps> = ({ content }) => {
           .gallery-container {
             --gallery-spacing: ${spacing};
           }
+        }
+        .gallery-container {
+          min-height: auto;
+          height: auto;
         }
       `}</style>
 
@@ -258,12 +277,12 @@ export const Gallery: React.FC<GalleryProps> = ({ content }) => {
       </div>
 
       {/* Desktop Layout */}
-      <div className="hidden md:block gallery-container">
+      <div className="hidden md:block gallery-container w-full">
         {renderGalleryLayout(desktopLayout)}
       </div>
 
       {/* Mobile Layout */}
-      <div className="block md:hidden gallery-container">
+      <div className="block md:hidden gallery-container w-full">
         {renderGalleryLayout(mobileLayout)}
       </div>
     </div>
