@@ -13,9 +13,13 @@ export const NavBar: React.FC<NavBarProps> = ({ currentPage, setPage, content })
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // Default fallbacks
-  const menuSize = content.globalTypography?.navMenuSize || '12px';
-  const subSize = content.globalTypography?.navSubtitleSize || '9px';
+  // Desktop Typography
+  const desktopMenuSize = content.globalTypography?.navMenuSize || '12px';
+  const desktopSubSize = content.globalTypography?.navSubtitleSize || '9px';
+
+  // Mobile Typography
+  const mobileMenuSize = content.mobileTypography?.navMenuSize || '10px';
+  const mobileSubSize = content.mobileTypography?.navSubtitleSize || '8px';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -70,15 +74,15 @@ export const NavBar: React.FC<NavBarProps> = ({ currentPage, setPage, content })
                   ${currentPage === item.value ? 'text-primary' : 'text-secondary hover:text-primary'}
                 `}
               >
-                <span 
+                <span
                   className="tracking-[0.2em] font-sans mb-1"
-                  style={{ fontSize: menuSize }}
+                  style={{ fontSize: desktopMenuSize }}
                 >
                   {item.label}
                 </span>
-                <span 
+                <span
                   className="font-serif tracking-widest opacity-80"
-                  style={{ fontSize: subSize }}
+                  style={{ fontSize: desktopSubSize }}
                 >
                   {item.sub}
                 </span>
@@ -108,10 +112,16 @@ export const NavBar: React.FC<NavBarProps> = ({ currentPage, setPage, content })
               onClick={() => handleNav(item.value)}
               className="group flex flex-col items-center"
             >
-              <span className="text-2xl font-display tracking-widest text-primary group-hover:text-accent transition-colors mb-2">
+              <span
+                className="font-display tracking-widest text-primary group-hover:text-accent transition-colors mb-2"
+                style={{ fontSize: mobileMenuSize }}
+              >
                 {item.label}
               </span>
-              <span className="font-serif text-sm text-secondary tracking-widest">
+              <span
+                className="font-serif text-secondary tracking-widest"
+                style={{ fontSize: mobileSubSize }}
+              >
                 {item.sub}
               </span>
             </button>
