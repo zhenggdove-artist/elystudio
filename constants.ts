@@ -9,7 +9,7 @@ export const INITIAL_CONTENT: SiteContent = {
   "colors": {
     "primary": "#3d1010",
     "secondary": "#343232",
-    "accent": "#99866c",
+    "accent": "#264050",
     "background": "#c2b599",
     "surface": "#625555",
     "line": "#E5E5E5"
@@ -36,8 +36,8 @@ export const INITIAL_CONTENT: SiteContent = {
   "constructionRequirements": "【底面需求】\n1. 木板或矽酸鈣板封板後，接縫AB膠填平打磨。\n2. 整面透批透磨。\n3. 整面刷兩層油性油漆 (矽酸鈣板也必須封油底以確保吸水率一致)。\n4. 不可用噴塗方式，容易有肉眼不可見的空隙導致封底失敗。\n\n【注意事項】\n- 牆面平整度大幅度影響完成面coating效果。\n- 老房水泥牆面建議需重新抓平以利製作。\n- 製作過程需獨立作業，請避免安排其他工班同時制作以免影響製作時間及完成效果。\n- 施工過程會有粉塵打磨及土料沾染，工期安排請留意讓我們在清潔前。",
   "contactInfo": "Facebook: Ely Mural Art Studio\n服務範圍: 全台皆有服務 (雙北以外另計車馬費)",
   "extraCosts": {
-    "curve": "$4,500 / 單位 (每新增單一弧形曲面)",
-    "edge": "$1,000 / 條 (單一牆面除基礎四條邊緣線外)",
+    "curve": "",
+    "edge": "",
     "travel": "$8/km + $2500/日 (雙北以外地區)"
   },
   "serviceTypography": {
@@ -79,7 +79,7 @@ export const INITIAL_CONTENT: SiteContent = {
         "紋理不重複無接縫",
         "美術專業人員施工"
       ],
-      "imageUrl": "https://duk.tw/BaSJxu.jpg"
+      "imageUrl": "https://duk.tw/2J8wfg.jpg"
     },
     {
       "id": "vermeer",
@@ -92,7 +92,7 @@ export const INITIAL_CONTENT: SiteContent = {
         "面層防水，養護容易",
         "客製化的畫面需求"
       ],
-      "imageUrl": "https://duk.tw/q9l8hA.jpg"
+      "imageUrl": "https://duk.tw/kMwOBK.jpg"
     }
   ],
   "galleryImages": [
@@ -129,7 +129,7 @@ export const INITIAL_CONTENT: SiteContent = {
       "caption": ""
     }
   ],
-  "galleryLayout": "masonry",
+  "galleryLayout": "single",
   "formspreeId": "xeoylpkj",
   "mobileGalleryLayout": "staggered",
   "galleryTextPosition": "side",
