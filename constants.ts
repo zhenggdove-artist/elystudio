@@ -11,7 +11,7 @@ export const INITIAL_CONTENT: SiteContent = {
     "secondary": "#343232",
     "accent": "#99866c",
     "background": "#c2b599",
-    "surface": "#856b6b",
+    "surface": "#625555",
     "line": "#E5E5E5"
   },
   "siteTitle": "ELY MURAL",
@@ -115,13 +115,13 @@ export const INITIAL_CONTENT: SiteContent = {
   },
   "servicesLayout": "cards",
   "mobileTypography": {
-    "navMenuSize": "6px",
+    "navMenuSize": "5px",
     "navSubtitleSize": "5px",
     "sectionTitleSize": "5px",
     "bodyTextSize": "5px",
     "footerTextSize": "5px",
-    "heroTitleSize": "6px",
-    "heroSubtitleSize": "6px"
+    "heroTitleSize": "5px",
+    "heroSubtitleSize": "5px"
   }
 };
 
