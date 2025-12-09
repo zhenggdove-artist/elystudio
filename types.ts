@@ -43,11 +43,13 @@ export interface GlobalTypography {
   navSubtitleSize: string;
   navPadding: string;
   navSpacing: string;
-  
+
   sectionTitleSize: string;
   bodyTextSize: string;
   footerTextSize: string;
 }
+
+export type GalleryLayout = 'masonry' | 'grid' | 'single' | 'horizontal' | 'staggered';
 
 export interface SiteContent {
   // Brand
@@ -72,10 +74,12 @@ export interface SiteContent {
   aboutText: string;
   constructionRequirements: string;
   contactInfo: string;
+  formspreeId: string;
 
   // Data
   services: ServiceItem[];
   galleryImages: string[];
+  galleryLayout: GalleryLayout;
   serviceTypography: ServiceTypography;
   globalTypography: GlobalTypography;
 

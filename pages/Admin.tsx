@@ -1,8 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
-import { SiteContent, Booking, SiteColors, HeroSettings, ServiceTypography, GlobalTypography } from '../types';
+import { SiteContent, Booking, SiteColors, HeroSettings, ServiceTypography, GlobalTypography, GalleryLayout } from '../types';
 import { getContent, saveContent, getBookings } from '../services/storageService';
-import { Save, LogOut, Lock, RefreshCcw, Plus, Trash2, ChevronUp, ChevronDown } from 'lucide-react';
+import { Save, LogOut, Lock, RefreshCcw, Plus, Trash2, ChevronUp, ChevronDown, Download, Copy } from 'lucide-react';
 
 interface AdminProps {
   onLogout: () => void;
@@ -18,6 +18,8 @@ export const Admin: React.FC<AdminProps> = ({ onLogout, refreshContent }) => {
   const [content, setContent] = useState<SiteContent>(getContent());
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [isSaving, setIsSaving] = useState(false);
+  const [showExportModal, setShowExportModal] = useState(false);
+  const [exportedCode, setExportedCode] = useState('');
 
   useEffect(() => {
     setBookings(getBookings());
@@ -55,7 +57,9 @@ export const Admin: React.FC<AdminProps> = ({ onLogout, refreshContent }) => {
         serviceTypography: { ...defaultServiceTypography, ...prev.serviceTypography },
         globalTypography: { ...defaultGlobalTypography, ...prev.globalTypography },
         globalBackgroundOpacity: prev.globalBackgroundOpacity || '40',
-        galleryImages: prev.galleryImages || []
+        galleryImages: prev.galleryImages || [],
+        galleryLayout: prev.galleryLayout || 'masonry',
+        formspreeId: prev.formspreeId || ''
     });
   }, []);
 
@@ -139,6 +143,23 @@ export const Admin: React.FC<AdminProps> = ({ onLogout, refreshContent }) => {
     setContent(prev => ({ ...prev, galleryImages: newImages }));
   };
 
+  const handleExportSettings = () => {
+    const code = `
+import { SiteContent } from './types';
+
+export const INITIAL_CONTENT: SiteContent = ${JSON.stringify(content, null, 2)};
+
+export const GALLERY_IMAGES = INITIAL_CONTENT.galleryImages;
+`;
+    setExportedCode(code);
+    setShowExportModal(true);
+  };
+
+  const handleCopyCode = () => {
+    navigator.clipboard.writeText(exportedCode);
+    alert('程式碼已複製到剪貼簿！');
+  };
+
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background p-6">
@@ -174,9 +195,17 @@ export const Admin: React.FC<AdminProps> = ({ onLogout, refreshContent }) => {
     <div className="max-w-6xl mx-auto px-6 py-12 pb-32">
       <div className="flex justify-between items-center mb-12 pb-4 border-b border-line">
         <h2 className="font-sans font-light text-2xl tracking-widest text-primary">ADMIN DASHBOARD</h2>
-        <button onClick={() => { setIsAuthenticated(false); onLogout(); }} className="flex items-center gap-2 text-xs tracking-widest font-sans hover:text-red-800 transition-colors">
-          <LogOut size={14} /> LOGOUT
-        </button>
+        <div className="flex gap-4">
+          <button
+            onClick={handleExportSettings}
+            className="flex items-center gap-2 px-4 py-2 bg-accent text-white text-xs tracking-widest hover:bg-primary transition-colors"
+          >
+            <Download size={14} /> 匯出設定
+          </button>
+          <button onClick={() => { setIsAuthenticated(false); onLogout(); }} className="flex items-center gap-2 text-xs tracking-widest font-sans hover:text-red-800 transition-colors">
+            <LogOut size={14} /> LOGOUT
+          </button>
+        </div>
       </div>
 
       <div className="flex flex-wrap gap-4 mb-12">
@@ -611,6 +640,36 @@ export const Admin: React.FC<AdminProps> = ({ onLogout, refreshContent }) => {
 
       {activeTab === 'gallery' && (
         <div className="space-y-8 animate-fade-in">
+          {/* Layout Selection */}
+          <section className="space-y-6 bg-white p-6 border border-line">
+            <h3 className="font-sans text-sm tracking-[0.2em] border-l-2 border-primary pl-4 text-primary uppercase">
+              Gallery Layout (作品集排版方式)
+            </h3>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+              {[
+                { value: 'masonry', label: '瀑布流', desc: 'Masonry - 自然錯落排列' },
+                { value: 'grid', label: '網格', desc: 'Grid - 整齊的網格排列' },
+                { value: 'single', label: '單欄', desc: 'Single Column - 大圖展示' },
+                { value: 'horizontal', label: '橫向滾動', desc: 'Horizontal - 水平滑動' },
+                { value: 'staggered', label: '交錯', desc: 'Staggered - 大小交錯' }
+              ].map((layout) => (
+                <button
+                  key={layout.value}
+                  onClick={() => setContent(prev => ({ ...prev, galleryLayout: layout.value as GalleryLayout }))}
+                  className={`p-4 border-2 transition-all text-left ${
+                    content.galleryLayout === layout.value
+                      ? 'border-primary bg-primary/5'
+                      : 'border-line hover:border-secondary'
+                  }`}
+                >
+                  <div className="font-sans text-sm tracking-wide text-primary mb-1">{layout.label}</div>
+                  <div className="text-xs text-secondary">{layout.desc}</div>
+                </button>
+              ))}
+            </div>
+          </section>
+
+          {/* Image Management */}
           <section className="space-y-6">
             <div className="flex justify-between items-center">
               <h3 className="font-sans text-sm tracking-[0.2em] border-l-2 border-primary pl-4 text-primary uppercase">
@@ -817,10 +876,34 @@ export const Admin: React.FC<AdminProps> = ({ onLogout, refreshContent }) => {
               </div>
             ))}
           </section>
+
+          {/* Formspree Integration */}
+          <section className="space-y-6">
+            <h3 className="font-sans text-sm tracking-[0.2em] border-l-2 border-primary pl-4 text-primary uppercase">Formspree Integration (預約表單設定)</h3>
+            <div className="bg-background p-6 space-y-4">
+              <div>
+                <label className="block text-xs text-secondary mb-2">Formspree Form ID</label>
+                <input
+                  className="w-full p-4 bg-white border border-line focus:border-primary outline-none font-mono text-sm"
+                  value={content.formspreeId || ''}
+                  onChange={(e) => handleTextChange('formspreeId', e.target.value)}
+                  placeholder="例如: abc123def"
+                />
+              </div>
+              <div className="text-sm text-secondary space-y-2 font-serif">
+                <p>💡 <strong>什麼是 Formspree？</strong></p>
+                <p>Formspree 是一個表單服務，可以將網站的預約表單直接發送到您的郵箱。</p>
+                <p className="text-xs mt-4">
+                  📌 <strong>如何獲取 Form ID？</strong><br/>
+                  請參考下方的詳細設定說明。
+                </p>
+              </div>
+            </div>
+          </section>
         </div>
       )}
       
-       <button 
+       <button
         onClick={handleSave}
         disabled={isSaving}
         className="fixed bottom-8 right-8 bg-primary text-white px-8 py-4 shadow-2xl flex items-center gap-4 hover:bg-accent transition-all z-50 text-xs tracking-widest"
@@ -828,6 +911,61 @@ export const Admin: React.FC<AdminProps> = ({ onLogout, refreshContent }) => {
         <Save size={16} />
         {isSaving ? 'SAVING...' : 'SAVE CHANGES'}
       </button>
+
+      {/* Export Modal */}
+      {showExportModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[100] p-6">
+          <div className="bg-white max-w-4xl w-full max-h-[80vh] overflow-hidden flex flex-col">
+            <div className="p-6 border-b border-line flex justify-between items-center">
+              <h3 className="font-sans text-lg tracking-widest text-primary">匯出網站設定 (方案 1)</h3>
+              <button onClick={() => setShowExportModal(false)} className="text-secondary hover:text-primary">
+                ✕
+              </button>
+            </div>
+
+            <div className="p-6 space-y-6 overflow-y-auto flex-1">
+              <div className="bg-background p-6 space-y-4">
+                <h4 className="font-sans text-sm tracking-wide text-primary">📋 使用說明：</h4>
+                <ol className="font-serif text-sm text-secondary space-y-2 pl-5 list-decimal">
+                  <li>點擊下方「複製程式碼」按鈕</li>
+                  <li>開啟專案中的 <code className="bg-white px-2 py-1 text-xs">constants.ts</code> 檔案</li>
+                  <li>將整個檔案內容替換成複製的程式碼</li>
+                  <li>儲存檔案</li>
+                  <li>執行 <code className="bg-white px-2 py-1 text-xs">git add .</code></li>
+                  <li>執行 <code className="bg-white px-2 py-1 text-xs">git commit -m "更新網站設定"</code></li>
+                  <li>執行 <code className="bg-white px-2 py-1 text-xs">git push origin main</code></li>
+                  <li>等待 GitHub Actions 自動部署（約 2 分鐘）</li>
+                  <li>完成！所有訪客都能看到更新了 ✅</li>
+                </ol>
+              </div>
+
+              <div>
+                <div className="flex justify-between items-center mb-2">
+                  <label className="font-sans text-xs text-secondary">constants.ts 新內容：</label>
+                  <button
+                    onClick={handleCopyCode}
+                    className="flex items-center gap-2 px-4 py-2 bg-primary text-white text-xs tracking-widest hover:bg-accent transition-colors"
+                  >
+                    <Copy size={14} /> 複製程式碼
+                  </button>
+                </div>
+                <pre className="bg-black text-green-400 p-4 rounded text-xs overflow-x-auto max-h-96">
+                  <code>{exportedCode}</code>
+                </pre>
+              </div>
+            </div>
+
+            <div className="p-6 border-t border-line flex justify-end gap-4">
+              <button
+                onClick={() => setShowExportModal(false)}
+                className="px-6 py-3 border border-line text-primary hover:border-primary text-xs tracking-widest transition-colors"
+              >
+                關閉
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   );

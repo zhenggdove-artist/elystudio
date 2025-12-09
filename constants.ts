@@ -42,8 +42,10 @@ export const INITIAL_CONTENT: SiteContent = {
   aboutText: `我們的藝術家，以多年的創作經驗及熟稔的工法，將歐洲文藝復興時的灰泥濕壁畫與現代藝術塗料做工藝與藝術的結合及傳承。\n\n實現我們將藝術帶入日常的理念。透過光影與肌理的互動，讓空間不再是冰冷平滑的場域，讓每一個角度都映照著家的溫度。`,
   
   constructionRequirements: `【底面需求】\n1. 木板或矽酸鈣板封板後，接縫AB膠填平打磨。\n2. 整面透批透磨。\n3. 整面刷兩層油性油漆 (矽酸鈣板也必須封油底以確保吸水率一致)。\n4. 不可用噴塗方式，容易有肉眼不可見的空隙導致封底失敗。\n\n【注意事項】\n- 牆面平整度大幅度影響完成面coating效果。\n- 老房水泥牆面建議需重新抓平以利製作。\n- 製作過程需獨立作業，請避免安排其他工班同時制作以免影響製作時間及完成效果。\n- 施工過程會有粉塵打磨及土料沾染，工期安排請留意讓我們在清潔前。`,
-  
+
   contactInfo: `Facebook: Ely Mural Art Studio\n服務範圍: 全台皆有服務 (雙北以外另計車馬費)`,
+
+  formspreeId: '',
   
   extraCosts: {
     curve: '$4,500 / 單位 (每新增單一弧形曲面)',
@@ -116,7 +118,9 @@ export const INITIAL_CONTENT: SiteContent = {
     'https://images.unsplash.com/photo-1600566752355-35792bedcfe1?q=80&w=2500',
     'https://images.unsplash.com/photo-1595558486026-646e7f848f08?q=80&w=2500',
     'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?q=80&w=2500',
-  ]
+  ],
+
+  galleryLayout: 'masonry'
 };
 
 export const GALLERY_IMAGES = INITIAL_CONTENT.galleryImages;

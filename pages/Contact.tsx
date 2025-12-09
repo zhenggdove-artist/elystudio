@@ -18,20 +18,56 @@ export const Contact: React.FC<ContactProps> = ({ content }) => {
     message: ''
   });
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
 
   const headerSize = content.globalTypography?.sectionTitleSize || '24px';
   const bodySize = content.globalTypography?.bodyTextSize || '16px';
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const newBooking: Booking = {
-      id: Date.now().toString(),
-      ...formData,
-      status: 'pending',
-      timestamp: Date.now()
-    };
-    addBooking(newBooking);
-    setSubmitted(true);
+    setIsSubmitting(true);
+    setError('');
+
+    try {
+      // 如果有設定 Formspree ID，使用 Formspree 發送
+      if (content.formspreeId) {
+        const response = await fetch(`https://formspree.io/f/${content.formspreeId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            名稱: formData.name,
+            聯絡方式: formData.contact,
+            地點: formData.location,
+            預計日期: formData.date,
+            服務類型: formData.surfaceType,
+            備註: formData.message,
+            _subject: `新預約：${formData.name} - ${formData.surfaceType}`
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error('發送失敗，請稍後再試');
+        }
+      }
+
+      // 同時儲存到 localStorage（供後台查看）
+      const newBooking: Booking = {
+        id: Date.now().toString(),
+        ...formData,
+        status: 'pending',
+        timestamp: Date.now()
+      };
+      addBooking(newBooking);
+
+      setSubmitted(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : '發送失敗，請稍後再試');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -185,13 +221,22 @@ export const Contact: React.FC<ContactProps> = ({ content }) => {
               </label>
             </div>
 
+            {error && (
+              <div className="p-4 bg-red-50 border border-red-200 text-red-800 text-sm font-serif">
+                {error}
+              </div>
+            )}
+
             <div className="pt-8">
-               <button 
+               <button
                 type="submit"
-                className="group flex items-center gap-4 bg-primary text-white px-12 py-4 tracking-widest text-xs hover:bg-accent transition-colors duration-500"
+                disabled={isSubmitting}
+                className="group flex items-center gap-4 bg-primary text-white px-12 py-4 tracking-widest text-xs hover:bg-accent transition-colors duration-500 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <span>SUBMIT REQUEST</span>
-                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                <span>{isSubmitting ? 'SENDING...' : 'SUBMIT REQUEST'}</span>
+                {!isSubmitting && (
+                  <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                )}
               </button>
             </div>
 
