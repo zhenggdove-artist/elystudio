@@ -15,6 +15,8 @@ export const Gallery: React.FC<GalleryProps> = ({ content }) => {
   const textPosition = content?.galleryTextPosition || 'bottom';
   const captionSize = content?.galleryTypography?.captionSize || '14px';
   const mobileCaptionSize = content?.galleryTypography?.mobileCaptionSize || '12px';
+  const spacing = content?.galleryTypography?.spacing || '16px';
+  const mobileSpacing = content?.galleryTypography?.mobileSpacing || '16px';
 
   const renderCaption = (image: GalleryImage, position: string) => {
     if (!image.caption) return null;
@@ -124,9 +126,15 @@ export const Gallery: React.FC<GalleryProps> = ({ content }) => {
       case 'masonry':
         // 瀑布流排列
         return (
-          <div className="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4">
+          <div
+            className="columns-1 md:columns-2 lg:columns-3"
+            style={{
+              gap: `var(--gallery-spacing, ${spacing})`,
+              columnGap: `var(--gallery-spacing, ${spacing})`
+            }}
+          >
             {galleryImages.map((image, index) => (
-              <div key={index} className="break-inside-avoid">
+              <div key={index} className="break-inside-avoid" style={{ marginBottom: `var(--gallery-spacing, ${spacing})` }}>
                 {imageElement(image, index)}
               </div>
             ))}
@@ -136,7 +144,10 @@ export const Gallery: React.FC<GalleryProps> = ({ content }) => {
       case 'grid':
         // 整齊的網格排列
         return (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+            style={{ gap: `var(--gallery-spacing, ${spacing})` }}
+          >
             {galleryImages.map((image, index) => (
               <div key={index} className={textPosition === 'side' ? '' : 'aspect-square'}>
                 {imageElement(image, index, textPosition === 'side' ? '' : '')}
@@ -148,7 +159,7 @@ export const Gallery: React.FC<GalleryProps> = ({ content }) => {
       case 'single':
         // 單欄大圖展示
         return (
-          <div className="max-w-4xl mx-auto space-y-12">
+          <div className="max-w-4xl mx-auto" style={{ display: 'flex', flexDirection: 'column', gap: `var(--gallery-spacing, ${spacing})` }}>
             {galleryImages.map((image, index) => (
               <div key={index} className="w-full">
                 {imageElement(image, index)}
@@ -161,7 +172,7 @@ export const Gallery: React.FC<GalleryProps> = ({ content }) => {
         // 橫向滾動
         return (
           <div className="overflow-x-auto pb-8">
-            <div className="flex gap-6 min-w-max">
+            <div className="flex min-w-max" style={{ gap: `var(--gallery-spacing, ${spacing})` }}>
               {galleryImages.map((image, index) => (
                 <div key={index} className="w-[80vw] md:w-[60vw] lg:w-[40vw] flex-shrink-0">
                   {imageElement(image, index)}
@@ -174,7 +185,10 @@ export const Gallery: React.FC<GalleryProps> = ({ content }) => {
       case 'staggered':
         // 交錯大小排列
         return (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div
+            className="grid grid-cols-2 md:grid-cols-4"
+            style={{ gap: `var(--gallery-spacing, ${spacing})` }}
+          >
             {galleryImages.map((image, index) => {
               // 每3張中有1張大圖（佔2列2欄）
               const isLarge = index % 3 === 0;
@@ -196,9 +210,15 @@ export const Gallery: React.FC<GalleryProps> = ({ content }) => {
 
       default:
         return (
-          <div className="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4">
+          <div
+            className="columns-1 md:columns-2 lg:columns-3"
+            style={{
+              gap: `var(--gallery-spacing, ${spacing})`,
+              columnGap: `var(--gallery-spacing, ${spacing})`
+            }}
+          >
             {galleryImages.map((image, index) => (
-              <div key={index} className="break-inside-avoid">
+              <div key={index} className="break-inside-avoid" style={{ marginBottom: `var(--gallery-spacing, ${spacing})` }}>
                 {imageElement(image, index)}
               </div>
             ))}
@@ -209,6 +229,19 @@ export const Gallery: React.FC<GalleryProps> = ({ content }) => {
 
   return (
     <div className="w-full pt-32 pb-24 px-6 md:px-12 max-w-[1440px] mx-auto animate-fade-in">
+      <style>{`
+        @media (max-width: 768px) {
+          .gallery-container {
+            --gallery-spacing: ${mobileSpacing};
+          }
+        }
+        @media (min-width: 769px) {
+          .gallery-container {
+            --gallery-spacing: ${spacing};
+          }
+        }
+      `}</style>
+
       <div className="text-center mb-24">
         <h2
           className="font-display tracking-[0.2em] text-primary mb-4"
@@ -225,12 +258,12 @@ export const Gallery: React.FC<GalleryProps> = ({ content }) => {
       </div>
 
       {/* Desktop Layout */}
-      <div className="hidden md:block">
+      <div className="hidden md:block gallery-container">
         {renderGalleryLayout(desktopLayout)}
       </div>
 
       {/* Mobile Layout */}
-      <div className="block md:hidden">
+      <div className="block md:hidden gallery-container">
         {renderGalleryLayout(mobileLayout)}
       </div>
     </div>

@@ -61,7 +61,9 @@ export const Admin: React.FC<AdminProps> = ({ onLogout, refreshContent }) => {
     };
     const defaultGalleryTypography = {
       captionSize: '14px',
-      mobileCaptionSize: '12px'
+      mobileCaptionSize: '12px',
+      spacing: '16px',
+      mobileSpacing: '16px'
     };
     const defaultServicesPageContent = {
       introText: '我們提供多種藝術岩面與塗裝服務，從材質的選擇到最終的呈現，都致力於將歐洲工藝與現代美學結合。',
@@ -1130,6 +1132,29 @@ export const GALLERY_IMAGES = INITIAL_CONTENT.galleryImages;
                   onChange={(e) => handleGalleryTypographyChange('mobileCaptionSize', e.target.value)}
                   placeholder="e.g. 12px or 0.85rem"
                 />
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-6 pt-4 border-t border-line">
+              <div>
+                <label className="block text-xs text-secondary mb-2">桌面版圖片間距 (Desktop Image Spacing)</label>
+                <input
+                  className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-sans"
+                  value={content.galleryTypography?.spacing || '16px'}
+                  onChange={(e) => handleGalleryTypographyChange('spacing', e.target.value)}
+                  placeholder="e.g. 16px or 1rem"
+                />
+                <p className="text-xs text-secondary mt-1">控制圖片之間的上下間距</p>
+              </div>
+              <div>
+                <label className="block text-xs text-secondary mb-2">手機版圖片間距 (Mobile Image Spacing)</label>
+                <input
+                  className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-sans"
+                  value={content.galleryTypography?.mobileSpacing || '16px'}
+                  onChange={(e) => handleGalleryTypographyChange('mobileSpacing', e.target.value)}
+                  placeholder="e.g. 16px or 1rem"
+                />
+                <p className="text-xs text-secondary mt-1">控制圖片之間的上下間距</p>
               </div>
             </div>
           </section>

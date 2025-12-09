@@ -71,6 +71,8 @@ export interface GalleryImage {
 export interface GalleryTypography {
   captionSize: string;
   mobileCaptionSize: string;
+  spacing: string;
+  mobileSpacing: string;
 }
 
 export interface WorkflowStep {
