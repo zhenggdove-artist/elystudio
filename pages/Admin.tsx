@@ -10,7 +10,7 @@ interface AdminProps {
 }
 
 export const Admin: React.FC<AdminProps> = ({ onLogout, refreshContent }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
 
