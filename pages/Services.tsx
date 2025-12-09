@@ -81,7 +81,6 @@ export const Services: React.FC<ServicesProps> = ({ content, setPage }) => {
                   ${index % 2 === 1 ? 'md:order-2' : ''}
                 `}>
                   <div>
-                    <span className="text-xs tracking-[0.3em] text-accent uppercase mb-2 block">Collection 0{index + 1}</span>
                     <h2
                       className="font-display text-primary leading-tight"
                       style={{ fontSize: typography.titleSize }}
