@@ -227,17 +227,9 @@ export const GALLERY_IMAGES = INITIAL_CONTENT.galleryImages;
     <div className="max-w-6xl mx-auto px-6 py-12 pb-32">
       <div className="flex justify-between items-center mb-12 pb-4 border-b border-line">
         <h2 className="font-sans font-light text-2xl tracking-widest text-primary">ADMIN DASHBOARD</h2>
-        <div className="flex gap-4">
-          <button
-            onClick={handleExportSettings}
-            className="flex items-center gap-2 px-4 py-2 bg-accent text-white text-xs tracking-widest hover:bg-primary transition-colors"
-          >
-            <Download size={14} /> 匯出設定
-          </button>
-          <button onClick={() => { setIsAuthenticated(false); onLogout(); }} className="flex items-center gap-2 text-xs tracking-widest font-sans hover:text-red-800 transition-colors">
-            <LogOut size={14} /> LOGOUT
-          </button>
-        </div>
+        <button onClick={() => { setIsAuthenticated(false); onLogout(); }} className="flex items-center gap-2 text-xs tracking-widest font-sans hover:text-red-800 transition-colors">
+          <LogOut size={14} /> LOGOUT
+        </button>
       </div>
 
       <div className="flex flex-wrap gap-4 mb-12">
@@ -1130,15 +1122,24 @@ export const GALLERY_IMAGES = INITIAL_CONTENT.galleryImages;
           </section>
         </div>
       )}
-      
-       <button
-        onClick={handleSave}
-        disabled={isSaving}
-        className="fixed bottom-8 right-8 bg-primary text-white px-8 py-4 shadow-2xl flex items-center gap-4 hover:bg-accent transition-all z-50 text-xs tracking-widest"
-      >
-        <Save size={16} />
-        {isSaving ? 'SAVING...' : 'SAVE CHANGES'}
-      </button>
+
+      {/* Fixed Action Buttons */}
+      <div className="fixed bottom-8 right-8 flex flex-col gap-3 z-50">
+        <button
+          onClick={handleExportSettings}
+          className="bg-accent text-white px-6 py-3 shadow-xl flex items-center gap-3 hover:bg-primary transition-all text-xs tracking-widest"
+        >
+          <Download size={16} /> EXPORT SETTINGS
+        </button>
+        <button
+          onClick={handleSave}
+          disabled={isSaving}
+          className="bg-primary text-white px-8 py-4 shadow-2xl flex items-center gap-4 hover:bg-accent transition-all text-xs tracking-widest disabled:opacity-50"
+        >
+          <Save size={16} />
+          {isSaving ? 'SAVING...' : 'SAVE CHANGES'}
+        </button>
+      </div>
 
       {/* Export Modal */}
       {showExportModal && (
