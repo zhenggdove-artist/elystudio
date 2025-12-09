@@ -62,8 +62,8 @@ export const INITIAL_CONTENT: SiteContent = {
       "description": "用以取代制式昂貴的石材牆面。紋理不重複無接縫、斷面更能真實呈現石材質感的自然線條。使用無毒純天然礦物岩料。",
       "features": [
         "最低施作坪數：3坪",
-        "多色罩染疊加 (如玫瑰金) +$1,500/坪",
-        "冷瓷釉面 coating +$2,000/坪",
+        "多色罩染疊加 (如玫瑰金) ",
+        "冷瓷釉面 coating ",
         "無毒純天然礦物岩料"
       ],
       "imageUrl": "https://duk.tw/F5OtJb.jpg"
