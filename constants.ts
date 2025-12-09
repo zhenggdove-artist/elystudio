@@ -136,8 +136,8 @@ export const INITIAL_CONTENT: SiteContent = {
   "galleryTypography": {
     "captionSize": "14px",
     "mobileCaptionSize": "6px",
-    "spacing": "16px",
-    "mobileSpacing": "16px"
+    "spacing": "400px",
+    "mobileSpacing": "400px"
   },
   "servicesLayout": "cards",
   "mobileTypography": {
