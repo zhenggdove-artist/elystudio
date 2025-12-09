@@ -100,6 +100,11 @@ export const Admin: React.FC<AdminProps> = ({ onLogout, refreshContent }) => {
       requirementsTitleSize: '20px',
       requirementsTextSize: '12px'
     };
+    const defaultExtraCosts = {
+      curve: '$4,500 / 單位 (每新增單一弧形曲面)',
+      edge: '$1,000 / 條 (單一牆面除基礎四條邊緣線外)',
+      travel: '$8/km + $2500/日 (雙北以外地區)'
+    };
 
     setContent({
         ...prev,
@@ -117,7 +122,8 @@ export const Admin: React.FC<AdminProps> = ({ onLogout, refreshContent }) => {
         mobileTypography: { ...defaultMobileTypography, ...prev.mobileTypography },
         servicesPageContent: { ...defaultServicesPageContent, ...(prev.servicesPageContent || {}) },
         servicesPageTypography: { ...defaultServicesPageTypography, ...(prev.servicesPageTypography || {}) },
-        mobileServicesTypography: { ...defaultMobileServicesTypography, ...(prev.mobileServicesTypography || {}) }
+        mobileServicesTypography: { ...defaultMobileServicesTypography, ...(prev.mobileServicesTypography || {}) },
+        extraCosts: { ...defaultExtraCosts, ...(prev.extraCosts || {}) }
     });
   }, []);
 
@@ -242,6 +248,13 @@ export const Admin: React.FC<AdminProps> = ({ onLogout, refreshContent }) => {
     setContent(prev => ({
         ...prev,
         mobileServicesTypography: { ...prev.mobileServicesTypography, [field]: value }
+    }));
+  };
+
+  const handleExtraCostsChange = (field: 'curve' | 'edge' | 'travel', value: string) => {
+    setContent(prev => ({
+        ...prev,
+        extraCosts: { ...prev.extraCosts, [field]: value }
     }));
   };
 
@@ -1477,6 +1490,53 @@ export const GALLERY_IMAGES = INITIAL_CONTENT.galleryImages;
                   value={content.servicesPageContent?.requirementsIntro || ''}
                   onChange={(e) => handleServicesPageContentChange('requirementsIntro', e.target.value)}
                 />
+              </div>
+
+              <div>
+                <label className="block text-xs text-secondary mb-2">REQUIREMENTS 詳細需求內容 (右側詳細說明)</label>
+                <textarea
+                  className="w-full p-4 bg-white border border-line focus:border-primary outline-none font-serif leading-relaxed"
+                  rows={12}
+                  value={content.constructionRequirements || ''}
+                  onChange={(e) => handleTextChange('constructionRequirements', e.target.value)}
+                  placeholder="【底面需求】&#10;1. 木板或矽酸鈣板封板後...&#10;&#10;【注意事項】&#10;- 牆面平整度..."
+                />
+                <p className="text-xs text-secondary mt-1">💡 提示：這是 REQUIREMENTS 區塊右側的詳細施工需求說明文字</p>
+              </div>
+
+              <div className="space-y-4 bg-background p-6">
+                <h4 className="text-sm text-primary font-sans tracking-wide">ADDITIONAL SERVICES 三個項目的文字內容</h4>
+                <p className="text-xs text-secondary">這裡編輯 ADDITIONAL SERVICES 區塊中三個方框的定價文字</p>
+
+                <div>
+                  <label className="block text-xs text-secondary mb-2">弧形曲面 (Curve Processing)</label>
+                  <input
+                    className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-sans"
+                    value={content.extraCosts?.curve || ''}
+                    onChange={(e) => handleExtraCostsChange('curve', e.target.value)}
+                    placeholder="$4,500 / 單位 (每新增單一弧形曲面)"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs text-secondary mb-2">邊角加工 (Edge Detailing)</label>
+                  <input
+                    className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-sans"
+                    value={content.extraCosts?.edge || ''}
+                    onChange={(e) => handleExtraCostsChange('edge', e.target.value)}
+                    placeholder="$1,000 / 條 (單一牆面除基礎四條邊緣線外)"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs text-secondary mb-2">外縣市服務 (Travel Fee)</label>
+                  <input
+                    className="w-full p-3 bg-white border border-line focus:border-primary outline-none font-sans"
+                    value={content.extraCosts?.travel || ''}
+                    onChange={(e) => handleExtraCostsChange('travel', e.target.value)}
+                    placeholder="$8/km + $2500/日 (雙北以外地區)"
+                  />
+                </div>
               </div>
             </div>
           </section>

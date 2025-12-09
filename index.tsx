@@ -15,11 +15,24 @@ import { Admin } from './pages/Admin';
 function App() {
   const [page, setPage] = useState<Page>(Page.HOME);
   const [content, setContent] = useState<SiteContent>(getContent());
-  
+  const [bgImageLoaded, setBgImageLoaded] = useState(false);
+
   // Refresh content from storage (e.g. after Admin save)
   const refreshContent = () => {
     setContent(getContent());
   };
+
+  // Preload background image for better performance
+  useEffect(() => {
+    if (content.globalBackgroundImage) {
+      const img = new Image();
+      img.src = content.globalBackgroundImage;
+      img.onload = () => setBgImageLoaded(true);
+      img.onerror = () => setBgImageLoaded(true); // Show content even if image fails
+    } else {
+      setBgImageLoaded(true);
+    }
+  }, [content.globalBackgroundImage]);
 
   // Scroll to top on page change
   useEffect(() => {
@@ -66,16 +79,17 @@ function App() {
     >
       {/* Global Background Layer with Feathering */}
       {content.globalBackgroundImage && (
-        <div 
-          className="fixed inset-0 z-0 pointer-events-none"
+        <div
+          className="fixed inset-0 z-0 pointer-events-none transition-opacity duration-700"
           style={{
-            backgroundImage: `url(${content.globalBackgroundImage})`,
+            backgroundImage: bgImageLoaded ? `url(${content.globalBackgroundImage})` : 'none',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            opacity: parseInt(content.globalBackgroundOpacity || '40') / 100, // Dynamic opacity
+            opacity: bgImageLoaded ? (parseInt(content.globalBackgroundOpacity || '40') / 100) : 0,
             // Feather edges to transparent using a radial mask (vignette effect)
             maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 100%)',
             WebkitMaskImage: 'radial-gradient(ellipse at center, black 40%, transparent 100%)',
+            willChange: 'opacity',
           }}
         />
       )}
