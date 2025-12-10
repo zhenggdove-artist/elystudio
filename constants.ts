@@ -16,7 +16,7 @@ export const INITIAL_CONTENT: SiteContent = {
   },
   "siteTitle": "ELY MURAL",
   "heroSubtitle": "人與空間互動的關係，一直是我們探索的課題。",
-  "heroTitle": "我們提供的是一種感知方式，一種使空間得以言說，人們得以與之對話的可能性。藉由藝術家的手工留痕，空間中的質料不再是原子化的工業排列。",
+  "heroTitle": "\n\n我們提供的是一種感知方式，一種使空間得以言說，人們得以與之對話的可能性。藉由藝術家的手工留痕，空間中的質料不再是原子化的工業排列。",
   "heroDescription": "透過光影與肌理的互動，讓空間不再是冰冷平滑的場域。\n讓每一個角度都映照著家的溫度。",
   "heroImage": "",
   "heroSettings": {
@@ -41,9 +41,9 @@ export const INITIAL_CONTENT: SiteContent = {
     "travel": "$8/km + $2500/日 (雙北以外地區)"
   },
   "serviceTypography": {
-    "titleSize": "12px",
+    "titleSize": "14px",
     "priceSize": "9px",
-    "descriptionSize": "10px"
+    "descriptionSize": "14px"
   },
   "globalTypography": {
     "navMenuSize": "12px",
@@ -58,12 +58,12 @@ export const INITIAL_CONTENT: SiteContent = {
     {
       "id": "marble",
       "title": "Marble 大理石藝術岩面",
-      "price": "$15,000 / 坪",
+      "price": "",
       "description": "用以取代制式昂貴的石材牆面。紋理不重複無接縫、斷面更能真實呈現石材質感的自然線條。使用無毒純天然礦物岩料。",
       "features": [
         "最低施作坪數：3坪",
-        "多色罩染疊加 (如玫瑰金) ",
-        "冷瓷釉面 coating ",
+        "多色罩染疊加 (如玫瑰金) +$1,500/坪",
+        "冷瓷釉面 coating +$2,000/坪",
         "無毒純天然礦物岩料"
       ],
       "imageUrl": "https://duk.tw/F5OtJb.jpg"
@@ -71,7 +71,7 @@ export const INITIAL_CONTENT: SiteContent = {
     {
       "id": "monet",
       "title": "Monet 莫內藝術岩面",
-      "price": "$10,000 / 坪",
+      "price": "",
       "description": "多層次罩染工法，色彩與肌理強弱可根據需求調整。讓暖意與歐洲的人文氣息留在家中。沒有尺幅上的限制。",
       "features": [
         "最低施作坪數：3坪",
@@ -84,7 +84,7 @@ export const INITIAL_CONTENT: SiteContent = {
     {
       "id": "vermeer",
       "title": "Vermeer 雲石藝術岩面",
-      "price": "$8,500 / 坪",
+      "price": "",
       "description": "內斂素色肌理。作品面層防水，養護容易。紋理不重複無接縫、斷面更能真實呈現石材質感的自然線條。",
       "features": [
         "最低施作坪數：3坪",
@@ -131,13 +131,13 @@ export const INITIAL_CONTENT: SiteContent = {
   ],
   "galleryLayout": "single",
   "formspreeId": "xeoylpkj",
-  "mobileGalleryLayout": "staggered",
-  "galleryTextPosition": "side",
+  "mobileGalleryLayout": "single",
+  "galleryTextPosition": "bottom",
   "galleryTypography": {
     "captionSize": "14px",
     "mobileCaptionSize": "6px",
-    "spacing": "400px",
-    "mobileSpacing": "400px"
+    "spacing": "300px",
+    "mobileSpacing": "50px"
   },
   "servicesLayout": "cards",
   "mobileTypography": {
@@ -193,11 +193,11 @@ export const INITIAL_CONTENT: SiteContent = {
   },
   "mobileServicesTypography": {
     "introSize": "14px",
-    "additionalTitleSize": "20px",
+    "additionalTitleSize": "14px",
     "additionalItemSize": "12px",
-    "workflowTitleSize": "20px",
-    "workflowNumberSize": "36px",
-    "workflowStepTitleSize": "18px",
+    "workflowTitleSize": "16px",
+    "workflowNumberSize": "16px",
+    "workflowStepTitleSize": "16px",
     "workflowStepDescSize": "14px",
     "requirementsTitleSize": "20px",
     "requirementsTextSize": "12px"
